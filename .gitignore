@@ -12,25 +12,25 @@ API/node_modules/
 API/dist/
 API/build/
 API/.nestjs/
-API/npm-debug.log*
-API/yarn-debug.log*
-API/yarn-error.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 #################################################
 # 🐍 PYTHON (ETL)
 #################################################
-ETL_FILES/__pycache__/
-ETL_FILES/*.pyc
-ETL_FILES/*.pyo
-ETL_FILES/*.pyd
+apps/ETL_FILES/__pycache__/
+*.pyc
+*.pyo
+*.pyd
 
-ETL_FILES/.venv/
-ETL_FILES/venv/
-ETL_FILES/env/
+apps/ETL_FILES/.venv/
+apps/ETL_FILES/venv/
+apps/ETL_FILES/env/
 
-ETL_FILES/.pytest_cache/
-ETL_FILES/.mypy_cache/
-ETL_FILES/.coverage
+.pytest_cache/
+.mypy_cache/
+.coverage
 
 #################################################
 # 📊 LOGS
@@ -63,14 +63,15 @@ dist/
 build/
 
 #################################################
-# 📂 DADOS (OPCIONAL)
+# 📂 DADOS DO ETL
 #################################################
-ETL_FILES/data_sets/
 
+# datasets processados
+apps/ETL_FILES/data_sets/
 
-#################################################
-# 📂 DADOS BRUTOS DO ETL (GRANDES ARQUIVOS)
-#################################################
-ETL_FILES/REANEST/
-ETL_FILES/PRF/
-ETL_FILES/*.csv
+# arquivos brutos
+apps/ETL_FILES/PRF/
+apps/ETL_FILES/REANEST/
+
+# qualquer CSV dentro do ETL
+apps/ETL_FILES/**/*.csv
