@@ -1,5 +1,6 @@
 export enum RoadDirectionEnum{
   INCREASING = 'INCREASING',
   DECREASING = 'DECREASING',
-  UKNOWN = 'UNKNOWN'
+  UKNOWN = 'UNKNOWN',
+  IGNORED = 'IGNORED',
 }

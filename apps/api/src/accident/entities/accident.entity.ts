@@ -26,18 +26,18 @@ export class Accident {
   lane_configuration_type!: LaneConfigurationEnum;
 
   @Column({ type: 'varchar', length: 255 })
-  road_Geometry!: string;
+  road_Geometry!: string; 
 
   @Column()
   day_phase!: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 255 })
   accident_cause!: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 255 })
   accident_type!: string;
 
-  @Column()
+  @Column({ type: 'varchar', length: 255 })
   accident_classification!: string;
 
   @Column()

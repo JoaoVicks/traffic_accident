@@ -1,20 +1,36 @@
 import pandas as pd 
 import numpy as np  
 
-# replace
 def replace_comma(df, column):
     df[column] = df[column].astype(str).str.replace(',', '.')
     return df
 
 
-# conversão
+def transform_lane_configuration(df):
+    df['tipo_pista'] = df['tipo_pista'].map({
+        'Simples': 'SINGLE',
+        'Dupla': 'DOUBLE',
+        'Múltipla': 'MULTIPLE',
+        'Não Informado': 'UNKNOWN',
+        'Ignorado': 'IGNORED'
+    })
+    return df
+
+def transform_road_direction(df):
+    df['sentido_via'] = df['sentido_via'].map({
+        'Crescente': 'INCREASING',
+        'Decrescente': 'DECREASING',
+        'Não Informado': 'UNKNOWN',
+        'Ignorado': 'IGNORED'
+    })
+    return df
 
 def convert_to_numeric(df, column):
     df[column] = pd.to_numeric(df[column], errors='coerce')
     return df
 
 
-# validação
+
 def validate_coordinates(df):
      df['coord_valida'] = (
         df['latitude'].between(-34, 5) &
@@ -22,10 +38,6 @@ def validate_coordinates(df):
     )
      return df
 
-
-# =========================
-# TRATAMENTO DE DATAS
-# =========================
 
 def process_dates(df):
      df['data_inversa'] = pd.to_datetime(
@@ -36,12 +48,6 @@ def process_dates(df):
      return df
 
 
-
-# =========================
-# PERÍODO DO DIA
-# =========================
-
-# transforma horario em datetime
 def process_time(df):
     df['horario'] = pd.to_datetime(
         df['horario'],
@@ -51,7 +57,7 @@ def process_time(df):
     return df
 
 
-# função classificação período
+
 def classify_period(df):
     df['hora'] = df['horario'].dt.hour
     df['periodo_dia'] = np.select(
@@ -71,10 +77,6 @@ def classify_period(df):
     )
     return df
 
-# =========================
-# GRAVIDADE
-# =========================
-
 
 def classify_severity(df):
      df['gravidade'] = np.select(
@@ -92,20 +94,54 @@ def classify_severity(df):
     )
      return df
 
-# ==========================
-# DROP DE COLUNAS
-# ==========================
-drop_columns_list = [
-    'fase_dia',
-]
 
-def drop_columns(df, columns):
-    df = df.drop(columns=columns)
-    return df
+def rename_accident_columns(df: pd.DataFrame) -> pd.DataFrame:
+    return df.rename(
+        columns={
+            "data_inversa": "date",
+            "longitude": "long",
+            "latitude": "lat",
+            "sentido_via": "road_direction",
+            "tipo_pista": "lane_configuration_type",
+            "fase_dia": "day_phase",
+            "causa_acidente": "accident_cause",
+            "tipo_acidente": "accident_type",
+            "tracado_via": "road_geometry",
+            "classificacao_acidente": "accident_classification",
+            "mortos": "fatalities",
+            "feridos_leves": "minor_injuries",
+            "feridos_graves": "serious_injuries",
+            "ilesos": "uninjured_people",
+            "feridos": "total_injuries",
+            "pessoas": "victims_count",
+            "ignorados": "unknown_condition_count",
+            "veiculos": "vehicle_count",
+        }
+    )
 
+def drop_accident_columns(df: pd.DataFrame) -> pd.DataFrame:
+    return df.drop(
+        columns=[
+            "id",
+            "dia_semana",
+            "horario",
+            "uf",
+            "br",
+            "km",
+            "municipio",
+            "condicao_metereologica",
+            "uso_solo",
+            "regional",
+            "delegacia",
+            "uop",
+        ],
+        errors="ignore",
+    )
 
 ### fluxo completo
 def transform_accidents(df):
+    df = transform_lane_configuration(df)
+    df = transform_road_direction(df)
     df = replace_comma(df, 'latitude')
     df = replace_comma(df, 'longitude')
     df = convert_to_numeric(df, 'latitude')
@@ -115,5 +151,6 @@ def transform_accidents(df):
     df = process_time(df)
     df = classify_period(df)
     df = classify_severity(df)
-    df = drop_columns(df, drop_columns_list)
+    df = drop_accident_columns(df)
+    df = rename_accident_columns(df)
     return df
