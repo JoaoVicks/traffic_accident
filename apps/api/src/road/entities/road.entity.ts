@@ -22,5 +22,5 @@ export class Road {
 
   @ManyToMany(() => City)
   @JoinTable()
-  cities!: City[];
+  cities!: City[]; 
 }

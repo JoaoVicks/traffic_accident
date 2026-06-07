@@ -10,8 +10,8 @@ export class Vehicle {
   @Column({ type: 'varchar', length: 255 })
   brand_vehicle!: string;
 
-  @Column({type: 'date'})
-  fabrication_year!: Date;
+  @Column()
+  fabrication_year!: number;
   
   @Column({ type: 'varchar', length: 255 })
   vehicle_type!: string;

@@ -15,7 +15,9 @@ def drop_state_columns(df: pd.DataFrame) -> pd.DataFrame:
         ]
     )
 
+
+
 def transform_state(df):
     df = rename_state_columns(df)
     df = drop_state_columns(df)
-    return df
+    return df.drop_duplicates(ignore_index=True)

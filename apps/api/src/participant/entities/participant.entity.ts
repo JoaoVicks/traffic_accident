@@ -16,7 +16,7 @@ export class Participant {
   @PrimaryColumn({ type: 'uuid' })
   readonly id!: string;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'int', nullable: true })
   age!: number;
 
   @Column({

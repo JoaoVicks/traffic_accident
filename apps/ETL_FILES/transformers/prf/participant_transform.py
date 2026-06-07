@@ -1,40 +1,48 @@
 import pandas as pd
 
-def transform_gender(df):
+def transform_gender(df: pd.DataFrame) -> pd.DataFrame:
     df['sexo'] = df['sexo'].map({
         'Masculino': 'MALE',
         'Feminino': 'FEMALE',
         'Não Informado': 'UNKNOWN',
         'Ignorado': 'IGNORED'
-    })
+    }).fillna('UNKNOWN')
     return df
 
-def transform_condition(df):
+def transform_age(df: pd.DataFrame) -> pd.DataFrame:
+    df['idade'] = pd.to_numeric(df['idade'], errors='coerce')
+
+    df.loc[
+        (df['idade'] < 0) | (df['idade'] > 130),
+        'idade'
+    ] = None
+
+    return df
+
+def transform_condition(df: pd.DataFrame) -> pd.DataFrame:
     df['estado_fisico'] = df['estado_fisico'].map({
         'Ileso': 'UNHARMED',
         'Lesões Leves': 'LIGHT_INJURY',
         'Lesões Graves': 'GRAVE_INJURY',
         'Óbito': 'FATAL',
         'Não Informado': 'UNKNOWN',
-    })  
+    }).fillna('UNKNOWN')
     return df
 
-def transform_participant_type(df):
-    df['tipo_participante'] = df['tipo_participante'].map({
+def transform_participant_type(df: pd.DataFrame) -> pd.DataFrame:
+    df['tipo_envolvido'] = df['tipo_envolvido'].map({
         'Condutor': 'DRIVER',
         'Passageiro': 'PASSENGER',
         'Pedestre': 'PEDESTRIAN',
         'Não Informado': 'UNKNOWN',
         'Testemunha': 'WITNESS',
-        'CAVALEIRO': 'RIDER',
-    })
+        'Cavaleiro': 'RIDER',
+    }).fillna('UNKNOWN')
     return df
 
 def drop_participant_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df.drop(
         columns=[
-            "id",
-            "pesid",
             "data_inversa",
             "dia_semana",
             "horario",
@@ -51,7 +59,6 @@ def drop_participant_columns(df: pd.DataFrame) -> pd.DataFrame:
             "tipo_pista",
             "tracado_via",
             "uso_solo",
-            "id_veiculo",
             "tipo_veiculo",
             "marca",
             "ano_fabricacao_veiculo",
@@ -72,16 +79,20 @@ def drop_participant_columns(df: pd.DataFrame) -> pd.DataFrame:
 def rename_participant_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df.rename(
         columns={
+            "pesid": "source_participant_id",
             "idade": "age",
             "sexo": "gender",
             "estado_fisico": "condition",
             "tipo_envolvido": "participant_type",
+            "id_veiculo": "source_vehicle_id",
+            "id": "source_accident_id",
         }
     )
 
-def transform_participants(df):
+def transform_participants(df: pd.DataFrame) -> pd.DataFrame:
     df = transform_condition(df)
     df = transform_gender(df)
+    df = transform_age(df)
     df = transform_participant_type(df) 
     df = rename_participant_columns(df)
     df = drop_participant_columns(df)

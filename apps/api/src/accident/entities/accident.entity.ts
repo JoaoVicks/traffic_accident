@@ -13,11 +13,17 @@ export class Accident {
   @Column({ type: 'date' })
   date!: Date;
 
+  @Column({ type: 'timestamp' })
+  time!: Date;
+
   @Column({ type: 'float' })
   long!: number;
 
   @Column({ type: 'float' })
   lat!: number;
+
+  @Column()
+  coordenate_validity!: boolean;
 
   @Column({ type: 'enum', enum: RoadDirectionEnum })
   road_direction!: RoadDirectionEnum;
@@ -26,7 +32,7 @@ export class Accident {
   lane_configuration_type!: LaneConfigurationEnum;
 
   @Column({ type: 'varchar', length: 255 })
-  road_Geometry!: string; 
+  road_geometry!: string; 
 
   @Column()
   day_phase!: string;
@@ -56,7 +62,7 @@ export class Accident {
   total_injuries!: number;
 
   @Column()
-  victims_count!: number;
+  participants_count!: number;
 
   @Column()
   unknown_condition_count!: number;
@@ -73,4 +79,6 @@ export class Accident {
   @ManyToOne(() => Road, road => road.accidents)
   @JoinColumn({ name: 'road_id' })
   road!: Road;
+
+
 }

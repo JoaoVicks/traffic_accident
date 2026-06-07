@@ -6,13 +6,14 @@ def rename_vehicle_columns(df: pd.DataFrame) -> pd.DataFrame:
             "marca": "brand_vehicle",
             "ano_fabricacao_veiculo": "fabrication_year",
             "tipo_veiculo": "vehicle_type",
+            "id_veiculo": "source_vehicle_id",
+            "id": "source_accident_id",
         }
     )
 
 def drop_vehicle_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df.drop(
         columns=[
-            "id",
             "pesid",
             "data_inversa",
             "dia_semana",
@@ -43,12 +44,13 @@ def drop_vehicle_columns(df: pd.DataFrame) -> pd.DataFrame:
             "regional",
             "delegacia",
             "uop",
-            "id_veiculo",
+
         ],
         errors="ignore",
     )
 
 def transform_vehicle(df):
     df = rename_vehicle_columns(df)
+    df['vehicle_type'] = df['vehicle_type'].fillna('NOT_INFORMED')
     df = drop_vehicle_columns(df)
     return df

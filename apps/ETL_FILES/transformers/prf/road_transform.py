@@ -1,29 +1,48 @@
+import pandas as pd
 
-import pandas as pd 
 
-
-def transform_road_code(df):
-    df['codigo_rodovia'] = df['codigo_rodovia'].fillna('Ignorado')
+def transform_road_code(df: pd.DataFrame) -> pd.DataFrame:
+    df["br"] = df["br"].fillna("Ignorado")
     return df
 
-def rename_road_columns(df: pd.DataFrame) -> pd.DataFrame:
-    return df.rename(
+
+def transform_road(df: pd.DataFrame) -> pd.DataFrame:
+    df = transform_road_code(df)
+
+    df = df.rename(
         columns={
             "br": "road_code",
         }
     )
 
-def drop_road_columns(df: pd.DataFrame) -> pd.DataFrame:
-    return df.drop(
-        columns=[
-            col for col in df.columns
-            if col != "road_code"
+    return (
+        df[
+            [
+                "road_code",
+            ]
         ]
+        .drop_duplicates(ignore_index=True)
     )
 
-def transform_road(df):
-    df = transform_road_code(df)
-    df = rename_road_columns(df)
-    df = drop_road_columns(df)
-    return df
 
+def transform_road_city(df: pd.DataFrame) -> pd.DataFrame:
+    df = transform_road_code(df)
+
+    df = df.rename(
+        columns={
+            "br": "road_code",
+            "municipio": "city_name",
+            "uf": "state_code",
+        }
+    )
+
+    return (
+        df[
+            [
+                "road_code",
+                "city_name",
+                "state_code",
+            ]
+        ]
+        .drop_duplicates(ignore_index=True)
+    )

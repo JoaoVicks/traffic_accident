@@ -79,7 +79,7 @@ def classify_period(df):
 
 
 def classify_severity(df):
-     df['gravidade'] = np.select(
+     df['classificacao_acidente'] = np.select(
         [
             df['mortos'] > 0,
             df['feridos_graves'] > 0,
@@ -98,12 +98,15 @@ def classify_severity(df):
 def rename_accident_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df.rename(
         columns={
+            "coord_valida": "coordenate_validity",
+            "id": "source_accident_id",
+            "horario":"time",
+            "periodo_dia": "day_phase",
             "data_inversa": "date",
             "longitude": "long",
             "latitude": "lat",
             "sentido_via": "road_direction",
             "tipo_pista": "lane_configuration_type",
-            "fase_dia": "day_phase",
             "causa_acidente": "accident_cause",
             "tipo_acidente": "accident_type",
             "tracado_via": "road_geometry",
@@ -113,30 +116,32 @@ def rename_accident_columns(df: pd.DataFrame) -> pd.DataFrame:
             "feridos_graves": "serious_injuries",
             "ilesos": "uninjured_people",
             "feridos": "total_injuries",
-            "pessoas": "victims_count",
+            "pessoas": "participants_count",
             "ignorados": "unknown_condition_count",
             "veiculos": "vehicle_count",
+            "br": "road_code",
         }
     )
 
 def drop_accident_columns(df: pd.DataFrame) -> pd.DataFrame:
     return df.drop(
         columns=[
-            "id",
             "dia_semana",
-            "horario",
+            "hora",
             "uf",
-            "br",
             "km",
             "municipio",
             "condicao_metereologica",
             "uso_solo",
             "regional",
             "delegacia",
+            "fase_dia",
             "uop",
         ],
         errors="ignore",
     )
+
+
 
 ### fluxo completo
 def transform_accidents(df):
@@ -151,6 +156,6 @@ def transform_accidents(df):
     df = process_time(df)
     df = classify_period(df)
     df = classify_severity(df)
-    df = drop_accident_columns(df)
     df = rename_accident_columns(df)
+    df = drop_accident_columns(df)
     return df
