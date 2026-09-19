@@ -1,6 +1,6 @@
 package com.example.beltwise_api.participant.enums;
 
-public enum Gender {
+public enum GenderEnum {
     MALE,
     FEMALE,
     IGNORED,

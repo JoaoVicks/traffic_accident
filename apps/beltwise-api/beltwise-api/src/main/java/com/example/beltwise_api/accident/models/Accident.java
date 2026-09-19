@@ -5,6 +5,8 @@ import com.example.beltwise_api.accident.enums.RoadDirectionEnum;
 import com.example.beltwise_api.participant.models.Participant;
 import com.example.beltwise_api.road.models.Road;
 import com.example.beltwise_api.vehicle.models.Vehicle;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -36,36 +38,66 @@ public class Accident {
     @Column(name = "lat")
     private Double latitude;
 
-    private Boolean coordenate_validity;
+    @Column(name = "coordenate_validity")
+    private Boolean coordinateValidity;
 
     @Enumerated(EnumType.STRING)
-    private RoadDirectionEnum road_direction;
+    @Column(name = "road_direction")
+    private RoadDirectionEnum roadDirection;
 
     @Enumerated(EnumType.STRING)
-    private LaneConfigurationEnum lane_configuration_type;
+    @Column(name = "lane_configuration_type")
+    private LaneConfigurationEnum laneConfigurationType;
 
-    private String road_geometry;
-    private String day_phase;
-    private String accident_cause;
-    private String accident_type;
-    private String accident_classification;
+    @Column(name = "road_geometry")
+    private String roadGeometry;
+
+    @Column(name = "day_phase")
+    private String dayPhase;
+
+    @Column(name = "accident_cause")
+    private String accidentCause;
+
+    @Column(name = "accident_type")
+    private String accidentType;
+
+    @Column(name = "accident_classification")
+    private String accidentClassification;
+
     private Integer fatalities;
-    private Integer minor_injuries;
-    private Integer serious_injuries;
-    private Integer uninjured_people;
-    private Integer total_injuries;
-    private Integer participants_count;
-    private Integer unknown_condition_count;
-    private Integer vehicle_count;
+
+    @Column(name = "minor_injuries")
+    private Integer minorInjuries;
+
+    @Column(name = "serious_injuries")
+    private Integer seriousInjuries;
+
+    @Column(name = "uninjured_people")
+    private Integer uninjuredPeople;
+
+    @Column(name = "total_injuries")
+    private Integer totalInjuries;
+
+    @Column(name = "participants_count")
+    private Integer participantsCount;
+
+    @Column(name = "unknown_condition_count")
+    private Integer unknownConditionCount;
+
+    @Column(name = "vehicle_count")
+    private Integer vehicleCount;
 
     @OneToMany(mappedBy = "accident")
+    @JsonManagedReference
     private List<Participant> participants;
 
     @OneToMany(mappedBy = "accident")
+    @JsonManagedReference
     private List<Vehicle> vehicles;
 
     @ManyToOne()
     @JoinColumn(name = "road_id")
+    @JsonBackReference
     private Road road;
 
 
@@ -77,22 +109,22 @@ public class Accident {
                 ", date=" + date +
                 ", longitude=" + longitude +
                 ", latitude=" + latitude +
-                ", coordenate_validity=" + coordenate_validity +
-                ", road_direction=" + road_direction +
-                ", lane_configuration_type=" + lane_configuration_type +
-                ", road_geometry='" + road_geometry + '\'' +
-                ", day_phase='" + day_phase + '\'' +
-                ", accident_cause='" + accident_cause + '\'' +
-                ", accident_type='" + accident_type + '\'' +
-                ", accident_classification='" + accident_classification + '\'' +
+                ", coordinateValidity=" + coordinateValidity +
+                ", roadDirection=" + roadDirection +
+                ", laneConfigurationType=" + laneConfigurationType +
+                ", roadGeometry='" + roadGeometry + '\'' +
+                ", dayPhase='" + dayPhase + '\'' +
+                ", accidentCause='" + accidentCause + '\'' +
+                ", accidentType='" + accidentType + '\'' +
+                ", accidentClassification='" + accidentClassification + '\'' +
                 ", fatalities=" + fatalities +
-                ", minor_injuries=" + minor_injuries +
-                ", serious_injuries=" + serious_injuries +
-                ", uninjured_people=" + uninjured_people +
-                ", total_injuries=" + total_injuries +
-                ", participants_count=" + participants_count +
-                ", unknown_condition_count=" + unknown_condition_count +
-                ", vehicle_count=" + vehicle_count +
+                ", minorInjuries=" + minorInjuries +
+                ", seriousInjuries=" + seriousInjuries +
+                ", uninjuredPeople=" + uninjuredPeople +
+                ", totalInjuries=" + totalInjuries +
+                ", participantsCount=" + participantsCount +
+                ", unknownConditionCount=" + unknownConditionCount +
+                ", vehicleCount=" + vehicleCount +
                 ", participants=" + participants +
                 ", vehicles=" + vehicles +
                 ", road=" + road +

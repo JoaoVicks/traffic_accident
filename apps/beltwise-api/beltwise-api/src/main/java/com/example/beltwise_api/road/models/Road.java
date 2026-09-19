@@ -3,6 +3,7 @@ package com.example.beltwise_api.road.models;
 
 import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.city.models.City;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -28,7 +29,10 @@ public class Road {
   private List<City> cities;
 
   @OneToMany(mappedBy = "road" )
+  @JsonManagedReference
   private List<Accident> accidents;
+
+
 
 
 

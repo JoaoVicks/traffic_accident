@@ -4,8 +4,7 @@ import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.accident.repositories.AccidentRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -16,11 +15,18 @@ public class AccidentService {
         this.accidentRepository = accidentRepository;
     }
 
-    public List<Accident> getAccident(String id) {
+    public Accident getAccident(String id) {
 
         UUID uuid = UUID.fromString(id);
-        
-        return Collections.singletonList(this.accidentRepository.getReferenceById(uuid));
+
+        Optional<Accident> accidentOptional = this.accidentRepository.findById(uuid);
+
+        if(accidentOptional.isPresent()){
+            return accidentOptional.get();
+        }
+        else{
+            throw new RuntimeException("Accident not found");
+        }
 
     }
 }
