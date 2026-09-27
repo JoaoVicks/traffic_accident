@@ -47,7 +47,7 @@ public class AnalyticsService {
 
         if(filter.endTime() != null ){
             specification = specification.and(
-                    AnalyticsFilterSpecification.hastTimeGreaterThanOrEqualTo(filter.endTime())
+                    AnalyticsFilterSpecification.hastTimeLessThanOrEqualTo(filter.endTime())
             );
         }
 
