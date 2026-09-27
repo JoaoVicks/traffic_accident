@@ -1,6 +1,6 @@
 package com.example.beltwise_api.accident.services;
 
-import com.example.beltwise_api.accident.dtos.AccidentMapFilterDTO;
+import com.example.beltwise_api.analytics.dtos.AnalyticFilterDTO;
 import com.example.beltwise_api.accident.dtos.AccidentMapPointResponseDTO;
 import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.accident.repositories.AccidentRepository;
@@ -34,7 +34,7 @@ public class AccidentService {
 
     }
 
-    public List<AccidentMapPointResponseDTO> getMapPoints(AccidentMapFilterDTO filter)
+    public List<AccidentMapPointResponseDTO> getMapPoints(AnalyticFilterDTO filter)
     {
 
 

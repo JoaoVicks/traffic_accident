@@ -2,8 +2,10 @@ package com.example.beltwise_api.analytics.controllers;
 
 
 import com.example.beltwise_api.analytics.dtos.AccidentSummaryResponseDTO;
+import com.example.beltwise_api.analytics.dtos.AnalyticFilterDTO;
 import com.example.beltwise_api.analytics.services.AnalyticsService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,8 +20,8 @@ public class AnalyticsController {
     }
 
     @GetMapping("/summary")
-    public AccidentSummaryResponseDTO getSummary(){
-    return this.analyticsService.getSummary();
+    public AccidentSummaryResponseDTO getSummary(@ModelAttribute AnalyticFilterDTO filter){
+    return this.analyticsService.getSummary(filter);
 }
 
 
