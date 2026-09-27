@@ -3,11 +3,14 @@ package com.example.beltwise_api.analytics.services;
 import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.analytics.dtos.AccidentSummaryResponseDTO;
 import com.example.beltwise_api.analytics.dtos.AnalyticFilterDTO;
+import com.example.beltwise_api.analytics.dtos.SeverityDistributionResponseDTO;
 import com.example.beltwise_api.analytics.repositories.AnalyticsRepository;
 import com.example.beltwise_api.analytics.specifications.AnalyticsFilterSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AnalyticsService {
@@ -58,7 +61,40 @@ public class AnalyticsService {
         }
 
 
-
         return this.analyticsRepository.getSummary(specification);
+    }
+
+    public List<SeverityDistributionResponseDTO> getSeverityDistribution(AnalyticFilterDTO filter) {
+
+        Specification<Accident> specification = Specification.unrestricted();
+
+        assert filter != null;
+
+        if (filter.startDate() != null && filter.endDate() != null) {
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hasDateBetween(filter.startDate(), filter.endDate())
+            );
+        }
+
+        if(filter.vehicleType() != null){
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hasVehicleType(filter.vehicleType())
+            );
+        }
+
+        if(filter.startTime() != null ){
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hastTimeGreaterThanOrEqualTo(filter.startTime())
+            );
+        }
+
+        if(filter.endTime() != null ){
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hastTimeLessThanOrEqualTo(filter.endTime())
+            );
+        }
+
+
+        return this.analyticsRepository.getSeverityDistribution(specification);
     }
 }

@@ -2,11 +2,13 @@ package com.example.beltwise_api.analytics.repositories;
 
 import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.analytics.dtos.AccidentSummaryResponseDTO;
+import com.example.beltwise_api.analytics.dtos.SeverityDistributionResponseDTO;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 @Repository
 public class AnalyticsRepository {
@@ -54,4 +56,33 @@ public class AnalyticsRepository {
         return entityManager.createQuery(query).getSingleResult();
     }
 
+    public List<SeverityDistributionResponseDTO> getSeverityDistribution(Specification<Accident> specification) {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        // what the request must return
+        CriteriaQuery<SeverityDistributionResponseDTO> query =
+                  criteriaBuilder.createQuery(SeverityDistributionResponseDTO.class);
+
+        // where the query comes from
+        Root<Accident> root = query.from(Accident.class);
+
+        Predicate predicate = specification.toPredicate(root,query,criteriaBuilder);
+
+        query.where(predicate);
+
+        Path<String> severity = root.get("accidentClassification");
+
+        query.select(
+                criteriaBuilder.construct(
+                        SeverityDistributionResponseDTO.class,
+                        severity,
+                        criteriaBuilder.count(root)
+                )
+        );
+
+        query.groupBy(severity);
+
+        return entityManager.createQuery(query).getResultList();
+    }
 }
