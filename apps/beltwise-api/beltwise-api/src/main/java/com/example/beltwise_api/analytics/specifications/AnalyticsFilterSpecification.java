@@ -11,10 +11,17 @@ import java.time.LocalTime;
 
 public class AnalyticsFilterSpecification {
 
-    public static Specification<Accident> hasDateBetween(LocalDate startTime , LocalDate endTime){
+    public static Specification<Accident> hasDateGreaterThanOrEqualTo(LocalDate startDate){
         return (
                 (root, query, criteriaBuilder) ->
-                criteriaBuilder.between(root.get("date"), startTime, endTime)
+                criteriaBuilder.greaterThanOrEqualTo(root.get("date"), startDate)
+                );
+    }
+
+    public static Specification<Accident> hasDateLessThanOrEqualTo(LocalDate endDate){
+        return (
+                (root, query, criteriaBuilder) ->
+                criteriaBuilder.lessThanOrEqualTo(root.get("date"),endDate)
                 );
     }
 

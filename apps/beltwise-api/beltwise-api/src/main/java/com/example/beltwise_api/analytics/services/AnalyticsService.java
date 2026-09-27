@@ -23,16 +23,20 @@ public class AnalyticsService {
     }
 
 
-
     public AccidentSummaryResponseDTO getSummary(AnalyticFilterDTO filter) {
 
         Specification<Accident> specification = Specification.unrestricted();
 
         assert filter != null;
 
-        if (filter.startDate() != null && filter.endDate() != null) {
+        if (filter.startDate() != null) {
             specification = specification.and(
-                AnalyticsFilterSpecification.hasDateBetween(filter.startDate(), filter.endDate())
+                AnalyticsFilterSpecification.hasDateGreaterThanOrEqualTo(filter.startDate())
+            );
+        }
+        if (filter.endDate() != null) {
+            specification = specification.and(
+                AnalyticsFilterSpecification.hasDateLessThanOrEqualTo(filter.endDate())
             );
         }
 
@@ -70,9 +74,14 @@ public class AnalyticsService {
 
         assert filter != null;
 
-        if (filter.startDate() != null && filter.endDate() != null) {
+        if (filter.startDate() != null ) {
             specification = specification.and(
-                    AnalyticsFilterSpecification.hasDateBetween(filter.startDate(), filter.endDate())
+                    AnalyticsFilterSpecification.hasDateGreaterThanOrEqualTo(filter.startDate())
+            );
+        }
+        if (filter.endDate() != null ) {
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hasDateLessThanOrEqualTo(filter.endDate())
             );
         }
 
