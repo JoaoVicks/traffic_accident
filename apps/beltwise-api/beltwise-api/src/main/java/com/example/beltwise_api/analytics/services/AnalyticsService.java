@@ -4,6 +4,7 @@ import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.analytics.dtos.AccidentSummaryResponseDTO;
 import com.example.beltwise_api.analytics.dtos.AnalyticFilterDTO;
 import com.example.beltwise_api.analytics.dtos.SeverityDistributionResponseDTO;
+import com.example.beltwise_api.analytics.enums.SeverityDistributionType;
 import com.example.beltwise_api.analytics.repositories.AnalyticsRepository;
 import com.example.beltwise_api.analytics.specifications.AnalyticsFilterSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,7 @@ public class AnalyticsService {
         return this.analyticsRepository.getSummary(specification);
     }
 
-    public List<SeverityDistributionResponseDTO> getSeverityDistribution(AnalyticFilterDTO filter) {
+    public List<SeverityDistributionResponseDTO> getSeverityDistribution(AnalyticFilterDTO filter, SeverityDistributionType type) {
 
         Specification<Accident> specification = Specification.unrestricted();
 

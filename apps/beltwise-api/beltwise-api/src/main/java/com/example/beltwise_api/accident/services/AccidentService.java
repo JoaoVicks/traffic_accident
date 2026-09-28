@@ -37,7 +37,6 @@ public class AccidentService {
     public List<AccidentMapPointResponseDTO> getMapPoints(AnalyticFilterDTO filter)
     {
 
-
         LocalTime startTime = filter.startTime() != null
                 ? filter.startTime()
                 : LocalTime.MIN;
