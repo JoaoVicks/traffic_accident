@@ -26,10 +26,10 @@ public class AnalyticsController {
 
 }
 
-    @GetMapping("/severity-distribution/accident")
+    @GetMapping("/severity-distribution/{type}")
     public List<SeverityDistributionResponseDTO> getSeverityDistributionAccident(
             @ModelAttribute AnalyticFilterDTO filter,
-            @RequestParam SeverityDistributionType type){
+            @PathVariable SeverityDistributionType type){
       return this.analyticsService.getSeverityDistribution(filter,type);
     }
 

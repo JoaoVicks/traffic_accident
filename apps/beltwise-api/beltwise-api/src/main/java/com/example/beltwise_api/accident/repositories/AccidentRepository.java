@@ -15,7 +15,8 @@ public interface AccidentRepository extends JpaRepository<Accident, UUID> {
 
 
     @Query("""
-    SELECT new com.example.beltwise_api.accident.dtos.AccidentMapPointResponseDTO(
+    SELECT new
+    com.example.beltwise_api.accident.dtos.AccidentMapPointResponseDTO(
         a.id,
         a.latitude,
         a.longitude
@@ -23,10 +24,10 @@ public interface AccidentRepository extends JpaRepository<Accident, UUID> {
     FROM Accident a
     WHERE a.latitude IS NOT NULL
       AND a.longitude IS NOT NULL
-      
+     \s
       AND (CAST(:startDate AS date) IS NULL OR a.date >= :startDate)
       AND (CAST(:endDate AS date) IS NULL OR a.date <= :endDate)
-      
+     \s
 AND (
     :startTimeEnabled = false
     OR a.time >= :startTime
@@ -36,7 +37,7 @@ AND (
     :endTimeEnabled = false
     OR a.time <= :endTime
 )
-      
+     \s
       AND (
       CAST(:vehicleType AS string) IS NULL OR\s
       EXISTS (
@@ -46,7 +47,7 @@ AND (
             AND v.vehicleType = :vehicleType
              )
           )
-          
+         \s
        AND(
        CAST(:accidentClassification AS string) IS NULL
        OR a.accidentClassification = :accidentClassification
