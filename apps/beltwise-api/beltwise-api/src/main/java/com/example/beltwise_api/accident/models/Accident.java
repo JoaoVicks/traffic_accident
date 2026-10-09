@@ -41,6 +41,9 @@ public class Accident {
     @Column(name = "coordenate_validity")
     private Boolean coordinateValidity;
 
+    @Column(name = "weather_condition")
+    private String weatherCondition;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "road_direction")
     private RoadDirectionEnum roadDirection;

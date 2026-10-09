@@ -1,10 +1,7 @@
 package com.example.beltwise_api.analytics.controllers;
 
 
-import com.example.beltwise_api.analytics.dtos.AccidentSummaryResponseDTO;
-import com.example.beltwise_api.analytics.dtos.AnalyticFilterDTO;
-import com.example.beltwise_api.analytics.dtos.SeverityDistributionResponseDTO;
-import com.example.beltwise_api.analytics.dtos.VehiclesDistributionResponseDTO;
+import com.example.beltwise_api.analytics.dtos.*;
 import com.example.beltwise_api.analytics.enums.SeverityDistributionType;
 import com.example.beltwise_api.analytics.services.AnalyticsService;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +39,9 @@ public class AnalyticsController {
       return this.analyticsService.getVehicleDistribution(filter);
     }
 
-
+    @GetMapping("/weather_distribution")
+    public List<WeatherDistributionResponseDTO> getWeatherDistribution(@ModelAttribute AnalyticFilterDTO filter){
+        return this.analyticsService.getWeatherDistribution(filter);
+    }
 
 }

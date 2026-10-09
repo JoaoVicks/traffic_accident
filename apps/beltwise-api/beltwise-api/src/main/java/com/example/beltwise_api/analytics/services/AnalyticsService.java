@@ -1,10 +1,7 @@
 package com.example.beltwise_api.analytics.services;
 
 import com.example.beltwise_api.accident.models.Accident;
-import com.example.beltwise_api.analytics.dtos.AccidentSummaryResponseDTO;
-import com.example.beltwise_api.analytics.dtos.AnalyticFilterDTO;
-import com.example.beltwise_api.analytics.dtos.SeverityDistributionResponseDTO;
-import com.example.beltwise_api.analytics.dtos.VehiclesDistributionResponseDTO;
+import com.example.beltwise_api.analytics.dtos.*;
 import com.example.beltwise_api.analytics.enums.SeverityDistributionType;
 import com.example.beltwise_api.analytics.repositories.AnalyticsRepository;
 import com.example.beltwise_api.analytics.specifications.AnalyticsFilterSpecification;
@@ -155,6 +152,48 @@ public class AnalyticsService {
     }
 
 
+    public List<WeatherDistributionResponseDTO> getWeatherDistribution(AnalyticFilterDTO filter) {
 
+        Specification<Accident> specification = Specification.unrestricted();
 
+        assert filter != null;
+
+        if (filter.startDate() != null) {
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hasDateGreaterThanOrEqualTo(filter.startDate())
+            );
+        }
+        if (filter.endDate() != null) {
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hasDateLessThanOrEqualTo(filter.endDate())
+            );
+        }
+
+        if(filter.vehicleType() != null){
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hasVehicleType(filter.vehicleType())
+            );
+        }
+
+        if(filter.startTime() != null ){
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hastTimeGreaterThanOrEqualTo(filter.startTime())
+            );
+        }
+
+        if(filter.endTime() != null ){
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hastTimeLessThanOrEqualTo(filter.endTime())
+            );
+        }
+
+        if (filter.accidentClassification() != null){
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hasAccidentClassification(filter.accidentClassification())
+            );
+        }
+
+        return this.analyticsRepository.getWeatherDistribution(specification);
+
+    }
 }

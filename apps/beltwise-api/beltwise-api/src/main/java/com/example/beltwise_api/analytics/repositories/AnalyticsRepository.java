@@ -4,6 +4,7 @@ import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.analytics.dtos.AccidentSummaryResponseDTO;
 import com.example.beltwise_api.analytics.dtos.SeverityDistributionResponseDTO;
 import com.example.beltwise_api.analytics.dtos.VehiclesDistributionResponseDTO;
+import com.example.beltwise_api.analytics.dtos.WeatherDistributionResponseDTO;
 import com.example.beltwise_api.vehicle.models.Vehicle;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
@@ -143,7 +144,6 @@ public class AnalyticsRepository {
         // Join tables
         Join<Accident,Vehicle> vehicleJoin = root.join("vehicles",JoinType.INNER);
 
-
         Predicate predicate =  specification.toPredicate(root,query,criteriaBuilder);
 
         query.where(predicate);
@@ -162,4 +162,44 @@ public class AnalyticsRepository {
 
         return entityManager.createQuery(query).getResultList();
     }
+
+    public List<WeatherDistributionResponseDTO> getWeatherDistribution(Specification<Accident> specification) {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        // what the request must return
+        CriteriaQuery<WeatherDistributionResponseDTO> query =
+                criteriaBuilder.createQuery(WeatherDistributionResponseDTO.class);
+
+        // where the query comes from
+        Root<Accident> root = query.from(Accident.class);
+
+        Predicate predicate =  specification.toPredicate(root,query,criteriaBuilder);
+
+        Path<String> weatherCondition = root.get("weatherCondition");
+
+        Expression<Long> quantityAccidentByWeather = criteriaBuilder.count(root);
+
+        query.where(predicate);
+
+
+        query.select(
+                criteriaBuilder.construct(
+                        WeatherDistributionResponseDTO.class,
+                        weatherCondition,
+                        quantityAccidentByWeather
+                )
+        );
+
+        query.groupBy(weatherCondition);
+        query.orderBy(
+                criteriaBuilder.asc(quantityAccidentByWeather)
+        );
+
+
+        return entityManager.createQuery(query).getResultList();
+    }
+
+
+
 }
