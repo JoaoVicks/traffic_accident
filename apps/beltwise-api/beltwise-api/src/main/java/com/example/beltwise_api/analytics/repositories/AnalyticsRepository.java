@@ -3,6 +3,8 @@ package com.example.beltwise_api.analytics.repositories;
 import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.analytics.dtos.AccidentSummaryResponseDTO;
 import com.example.beltwise_api.analytics.dtos.SeverityDistributionResponseDTO;
+import com.example.beltwise_api.analytics.dtos.VehiclesDistributionResponseDTO;
+import com.example.beltwise_api.vehicle.models.Vehicle;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -123,6 +125,40 @@ public class AnalyticsRepository {
         );
 
         query.groupBy(severity);
+
+        return entityManager.createQuery(query).getResultList();
+    }
+
+    public List<VehiclesDistributionResponseDTO> getVehicleDistribution(Specification<Accident> specification) {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        // what the request must return
+        CriteriaQuery<VehiclesDistributionResponseDTO> query =
+                criteriaBuilder.createQuery(VehiclesDistributionResponseDTO.class);
+
+        // where the query comes from
+        Root<Accident> root = query.from(Accident.class);
+
+        // Join tables
+        Join<Accident,Vehicle> vehicleJoin = root.join("vehicles",JoinType.INNER);
+
+
+        Predicate predicate =  specification.toPredicate(root,query,criteriaBuilder);
+
+        query.where(predicate);
+        Path<String> vehicleType =  vehicleJoin.get("vehicleType");
+
+
+        query.select(
+                criteriaBuilder.construct(
+                 VehiclesDistributionResponseDTO.class,
+                        vehicleType,
+                        criteriaBuilder.count(vehicleJoin)
+                )
+        );
+
+        query.groupBy(vehicleType);
 
         return entityManager.createQuery(query).getResultList();
     }

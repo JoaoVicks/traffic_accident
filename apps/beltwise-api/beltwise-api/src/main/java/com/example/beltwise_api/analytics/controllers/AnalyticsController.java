@@ -4,6 +4,7 @@ package com.example.beltwise_api.analytics.controllers;
 import com.example.beltwise_api.analytics.dtos.AccidentSummaryResponseDTO;
 import com.example.beltwise_api.analytics.dtos.AnalyticFilterDTO;
 import com.example.beltwise_api.analytics.dtos.SeverityDistributionResponseDTO;
+import com.example.beltwise_api.analytics.dtos.VehiclesDistributionResponseDTO;
 import com.example.beltwise_api.analytics.enums.SeverityDistributionType;
 import com.example.beltwise_api.analytics.services.AnalyticsService;
 import org.springframework.web.bind.annotation.*;
@@ -33,6 +34,13 @@ public class AnalyticsController {
       return this.analyticsService.getSeverityDistribution(filter,type);
     }
 
+
+    @GetMapping("/vehicle-distribution")
+    public List<VehiclesDistributionResponseDTO> getVehicleDistribution(
+            @ModelAttribute AnalyticFilterDTO filter
+    ){
+      return this.analyticsService.getVehicleDistribution(filter);
+    }
 
 
 
