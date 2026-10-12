@@ -3,6 +3,7 @@ package com.example.beltwise_api.analytics.services;
 import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.analytics.dtos.*;
 import com.example.beltwise_api.analytics.enums.SeverityDistributionType;
+import com.example.beltwise_api.analytics.enums.TimeDistributionType;
 import com.example.beltwise_api.analytics.repositories.AnalyticsRepository;
 import com.example.beltwise_api.analytics.specifications.AnalyticsFilterSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -194,6 +195,52 @@ public class AnalyticsService {
         }
 
         return this.analyticsRepository.getWeatherDistribution(specification);
+
+    }
+
+    public List<TimeDistributionResponseDTO> getTimeDistribution(AnalyticFilterDTO filter, TimeDistributionType type) {
+
+        Specification<Accident> specification = Specification.unrestricted();
+
+        assert filter != null;
+
+        if (filter.startDate() != null) {
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hasDateGreaterThanOrEqualTo(filter.startDate())
+            );
+        }
+        if (filter.endDate() != null) {
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hasDateLessThanOrEqualTo(filter.endDate())
+            );
+        }
+
+        if(filter.vehicleType() != null){
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hasVehicleType(filter.vehicleType())
+            );
+        }
+
+        if(filter.startTime() != null ){
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hastTimeGreaterThanOrEqualTo(filter.startTime())
+            );
+        }
+
+        if(filter.endTime() != null ){
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hastTimeLessThanOrEqualTo(filter.endTime())
+            );
+        }
+
+        if (filter.accidentClassification() != null){
+            specification = specification.and(
+                    AnalyticsFilterSpecification.hasAccidentClassification(filter.accidentClassification())
+            );
+        }
+
+
+       return this.analyticsRepository.getTimeDistribution(specification);
 
     }
 }

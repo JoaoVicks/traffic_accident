@@ -1,17 +1,18 @@
 package com.example.beltwise_api.analytics.repositories;
 
 import com.example.beltwise_api.accident.models.Accident;
-import com.example.beltwise_api.analytics.dtos.AccidentSummaryResponseDTO;
-import com.example.beltwise_api.analytics.dtos.SeverityDistributionResponseDTO;
-import com.example.beltwise_api.analytics.dtos.VehiclesDistributionResponseDTO;
-import com.example.beltwise_api.analytics.dtos.WeatherDistributionResponseDTO;
+import com.example.beltwise_api.analytics.dtos.*;
 import com.example.beltwise_api.vehicle.models.Vehicle;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
+import org.hibernate.Session;
+import org.hibernate.query.common.TemporalUnit;
+import org.hibernate.query.criteria.HibernateCriteriaBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalTime;
 import java.util.List;
 
 @Repository
@@ -201,5 +202,39 @@ public class AnalyticsRepository {
     }
 
 
+    public List<TimeDistributionResponseDTO> getTimeDistribution(Specification<Accident> specification) {
 
+        HibernateCriteriaBuilder criteriaBuilder =  entityManager.unwrap(Session.class).getCriteriaBuilder();
+
+        // what the request must return
+        CriteriaQuery<TimeDistributionResponseDTO> query =
+                criteriaBuilder.createQuery(TimeDistributionResponseDTO.class);
+
+        // where the query comes from
+        Root<Accident> root = query.from(Accident.class);
+
+        Predicate predicate =  specification.toPredicate(root,query,criteriaBuilder);
+
+        Expression<LocalTime> time = criteriaBuilder.truncate(root.get("time"), TemporalUnit.HOUR );
+        query.where(predicate);
+
+
+        query.select(
+                criteriaBuilder.construct(
+                        TimeDistributionResponseDTO.class,
+                        time,
+                        criteriaBuilder.count(root)
+
+                )
+        );
+
+
+        query.groupBy(time);
+        query.orderBy(
+                criteriaBuilder.asc(time)
+        );
+
+
+        return entityManager.createQuery(query).getResultList();
+    }
 }
