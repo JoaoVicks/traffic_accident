@@ -23,9 +23,10 @@ public class Road {
 
   @Id
   private UUID id;
-  private String road_code;
+  @Column(name = "road_code")
+  private String roadCode;
 
-  @ManyToMany
+  @ManyToMany(mappedBy = "roads")
   private List<City> cities;
 
   @OneToMany(mappedBy = "road" )

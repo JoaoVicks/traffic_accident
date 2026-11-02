@@ -2,7 +2,7 @@ package com.example.beltwise_api.accident.controllers;
 
 
 import com.example.beltwise_api.accident.dtos.AccidentDetailsResponseDTO;
-import com.example.beltwise_api.accident.dtos.AccidentMapFilterDTO;
+import com.example.beltwise_api.analytics.dtos.AnalyticFilterDTO;
 import com.example.beltwise_api.accident.dtos.AccidentMapPointResponseDTO;
 import com.example.beltwise_api.accident.mappers.AccidentDetailsResponseMapper;
 import com.example.beltwise_api.accident.models.Accident;
@@ -40,7 +40,7 @@ public class AccidentController {
     }
 
     @GetMapping(path = "/map")
-    public List<AccidentMapPointResponseDTO> getMapPoints(@Valid @ModelAttribute AccidentMapFilterDTO filter){
+    public List<AccidentMapPointResponseDTO> getMapPoints(@Valid @ModelAttribute AnalyticFilterDTO filter){
         return this.accidentService.getMapPoints(filter);
     }
 }

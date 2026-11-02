@@ -22,9 +22,16 @@ public class City {
 
     @Id
     private UUID id;
-    private String city_name;
 
-    @ManyToMany(mappedBy = "cities")
+    @Column(name = "city_name")
+    private String cityName;
+
+    @ManyToMany()
+    @JoinTable(
+            name = "road_cities_city",
+            joinColumns = @JoinColumn(name = "city_id"),
+            inverseJoinColumns = @JoinColumn(name = "road_id")
+    )
     private List<Road> roads;
 
     @ManyToOne
