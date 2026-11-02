@@ -107,7 +107,7 @@ public class AnalyticsService {
         return switch (type) {
             case ACCIDENT -> this.analyticsRepository.getSeverityDistributionAccident(specification);
             case VICTIM -> this.analyticsRepository.getSeverityDistributionVictim(specification);
-            default -> throw new IllegalArgumentException("Unsupported severity distribution type: " + type);
+            default -> throw new IllegalArgumentException("Unsupported severity distribution by type: " + type);
         };
 
 
@@ -240,7 +240,11 @@ public class AnalyticsService {
         }
 
 
-       return this.analyticsRepository.getTimeDistribution(specification);
+       return switch (type){
+           case VICTIM -> this.analyticsRepository.getTimeDistributionByVictim(specification);
+           case ACCIDENT -> this.analyticsRepository.getTimeDistributionByAccident(specification);
+           default -> throw new IllegalArgumentException("Unsupported time distribution by type: " + type);
+       };
 
     }
 }

@@ -1,10 +1,7 @@
 package com.example.beltwise_api.state.models;
 
 import com.example.beltwise_api.city.models.City;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +20,8 @@ import java.util.UUID;
 public class State {
     @Id
     private UUID id;
-    private String state_code;
+    @Column(name = "state_code")
+    private String stateCode;
     @OneToMany(mappedBy = "state")
     private List<City> cities;
 

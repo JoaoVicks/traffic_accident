@@ -2,6 +2,7 @@ package com.example.beltwise_api.accident.models;
 
 import com.example.beltwise_api.accident.enums.LaneConfigurationEnum;
 import com.example.beltwise_api.accident.enums.RoadDirectionEnum;
+import com.example.beltwise_api.city.models.City;
 import com.example.beltwise_api.participant.models.Participant;
 import com.example.beltwise_api.road.models.Road;
 import com.example.beltwise_api.vehicle.models.Vehicle;
@@ -34,6 +35,10 @@ public class Accident {
 
     @Column(name = "long")
     private Double longitude;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 
     @Column(name = "lat")
     private Double latitude;

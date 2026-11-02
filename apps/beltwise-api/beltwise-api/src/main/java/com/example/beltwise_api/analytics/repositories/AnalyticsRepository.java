@@ -202,7 +202,7 @@ public class AnalyticsRepository {
     }
 
 
-    public List<TimeDistributionResponseDTO> getTimeDistribution(Specification<Accident> specification) {
+    public List<TimeDistributionResponseDTO> getTimeDistributionByAccident(Specification<Accident> specification) {
 
         HibernateCriteriaBuilder criteriaBuilder =  entityManager.unwrap(Session.class).getCriteriaBuilder();
 
@@ -236,5 +236,51 @@ public class AnalyticsRepository {
 
 
         return entityManager.createQuery(query).getResultList();
+    }
+
+    public List<TimeDistributionResponseDTO> getTimeDistributionByVictim(Specification<Accident> specification) {
+
+        HibernateCriteriaBuilder criteriaBuilder =  entityManager.unwrap(Session.class).getCriteriaBuilder();
+
+        // what the request must return
+        CriteriaQuery<TimeDistributionResponseDTO> query =
+                criteriaBuilder.createQuery(TimeDistributionResponseDTO.class);
+
+        // where the query comes from
+        Root<Accident> root = query.from(Accident.class);
+
+        Predicate predicate =  specification.toPredicate(root,query,criteriaBuilder);
+
+        Expression<LocalTime> time = criteriaBuilder.truncate(root.get("time"), TemporalUnit.HOUR );
+        query.where(predicate);
+
+        Expression<Long> peoplePerAccident =
+                criteriaBuilder.sum(
+                        criteriaBuilder.toLong(root.get("totalInjuries")),
+                        criteriaBuilder.toLong(root.get("uninjuredPeople"))
+                );
+
+        Expression<Long> victimsCount =
+                criteriaBuilder.sum(peoplePerAccident);
+
+
+        query.select(
+                criteriaBuilder.construct(
+                        TimeDistributionResponseDTO.class,
+                        time,
+                        victimsCount
+
+                )
+        );
+
+
+        query.groupBy(time);
+        query.orderBy(
+                criteriaBuilder.asc(time)
+        );
+
+
+        return entityManager.createQuery(query).getResultList();
+
     }
 }
