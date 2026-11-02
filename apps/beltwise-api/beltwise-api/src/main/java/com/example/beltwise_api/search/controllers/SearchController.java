@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/search")
@@ -24,6 +25,11 @@ public class SearchController {
       return this.searchService.searchSuggestions(searchRequestDTO);
     }
 
+
+    @GetMapping("/road-cities/{id}")
+    public List<RoadCitySearchResultResponseDTO> searchRoadCities(@PathVariable UUID id){
+        return this.searchService.searchRoadCities(id);
+    }
 
 
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class SearchService {
@@ -33,11 +34,14 @@ public class SearchService {
         Pageable pageable =  PageRequest.of(0,limit);
 
 
-     List<StateSearchResultResponseDTO>  states = this.stateRepository.searchByName(searchRequestDTO.inputSearch(), pageable);
+     List<StateSearchResultResponseDTO>  states =
+             this.stateRepository.searchByName(searchRequestDTO.inputSearch(), pageable);
 
-     List<RoadSearchProjectionDTO>  roads = this.roadRepository.getRoadByRoadCode(searchRequestDTO.inputSearch(), pageable);
+     List<RoadSearchProjectionDTO>  roads =
+             this.roadRepository.getRoadByRoadCode(searchRequestDTO.inputSearch(), pageable);
 
-     List<CitySearchResultResponseDTO> cities = this.cityRepository.searchByName(searchRequestDTO.inputSearch(),pageable);
+     List<CitySearchResultResponseDTO> cities =
+             this.cityRepository.searchByName(searchRequestDTO.inputSearch(),pageable);
 
 
      SearchResultResponseDTO searchResultResponseDTOS = new SearchResultResponseDTO(
@@ -47,6 +51,15 @@ public class SearchService {
      );
 
      return Collections.singletonList(searchResultResponseDTOS);
+
+    }
+
+    public List<RoadCitySearchResultResponseDTO> searchRoadCities(UUID id) {
+        int limit = 5;
+
+        Pageable pageable =  PageRequest.of(0,limit);
+
+        return  this.roadRepository.getRoadCitiesById(id,pageable);
 
     }
 }

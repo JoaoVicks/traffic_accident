@@ -44,7 +44,7 @@ public interface RoadRepository extends JpaRepository<Road, UUID> {
     GROUP BY r.id,c.id,c.cityName
     ORDER BY COUNT(DISTINCT a.id) DESC
 """)
-    List<RoadCitySearchResultResponseDTO> getRoadCityById(@Param("id") UUID id);
+    List<RoadCitySearchResultResponseDTO> getRoadCitiesById(@Param("id") UUID id, Pageable pageable);
 
 
 
