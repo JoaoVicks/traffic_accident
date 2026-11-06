@@ -1,5 +1,6 @@
 import pandas as pd 
 import numpy as np  
+from transformers.prf.road_transform import transform_road_code
 
 def replace_comma(df, column):
     df[column] = df[column].astype(str).str.replace(',', '.')
@@ -78,6 +79,13 @@ def classify_period(df):
     return df
 
 
+    
+
+def changing_time_format(df):
+    df['horario'] = df['horario'].dt.time
+    return df
+
+
 def classify_severity(df):
      df['classificacao_acidente'] = np.select(
         [
@@ -93,6 +101,8 @@ def classify_severity(df):
         default='Sem vítimas'
     )
      return df
+
+
 
 
 def rename_accident_columns(df: pd.DataFrame) -> pd.DataFrame:
@@ -120,6 +130,9 @@ def rename_accident_columns(df: pd.DataFrame) -> pd.DataFrame:
             "ignorados": "unknown_condition_count",
             "veiculos": "vehicle_count",
             "br": "road_code",
+            "condicao_metereologica": "weather_condition",
+            "municipio": "city_name",
+            "uf": "state_code",
         }
     )
 
@@ -128,10 +141,7 @@ def drop_accident_columns(df: pd.DataFrame) -> pd.DataFrame:
         columns=[
             "dia_semana",
             "hora",
-            "uf",
             "km",
-            "municipio",
-            "condicao_metereologica",
             "uso_solo",
             "regional",
             "delegacia",
@@ -145,6 +155,7 @@ def drop_accident_columns(df: pd.DataFrame) -> pd.DataFrame:
 
 ### fluxo completo
 def transform_accidents(df):
+    df = transform_road_code(df)
     df = transform_lane_configuration(df)
     df = transform_road_direction(df)
     df = replace_comma(df, 'latitude')
@@ -155,6 +166,7 @@ def transform_accidents(df):
     df = process_dates(df)
     df = process_time(df)
     df = classify_period(df)
+    df = changing_time_format(df)
     df = classify_severity(df)
     df = rename_accident_columns(df)
     df = drop_accident_columns(df)

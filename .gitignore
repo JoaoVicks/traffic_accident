@@ -66,6 +66,9 @@ build/
 # 📂 DADOS DO ETL
 #################################################
 
+# dados brutos e processados
+apps/ETL_FILES/data/
+
 # datasets processados
 apps/ETL_FILES/data_sets/
 
@@ -75,3 +78,6 @@ apps/ETL_FILES/REANEST/
 
 # qualquer CSV dentro do ETL
 apps/ETL_FILES/**/*.csv
+
+# qualquer pbf dentro do ETL
+apps/ETL_FILES/**/*.pbf
