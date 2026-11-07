@@ -15,18 +15,22 @@ public interface RoadRepository extends JpaRepository<Road, UUID> {
 
     @Query("""
     SELECT new com.example.beltwise_api.search.dtos.RoadSearchProjectionDTO(
-      r.id,
-      r.roadCode,
-      COUNT(DISTINCT a.id)
-      )
+        r.id,
+        r.roadCode,
+        COUNT(DISTINCT a.id)
+    )
     FROM Road r
-    JOIN r.accidents a
-        WHERE r.roadCode
-         LIKE LOWER(CONCAT('%', :term, '%'))
+    LEFT JOIN r.accidents a
+    LEFT JOIN r.names rn
+    WHERE LOWER(r.roadCode) LIKE LOWER(CONCAT('%', :term, '%'))
+       OR LOWER(rn.name) LIKE LOWER(CONCAT('%', :term, '%'))
     GROUP BY r.id, r.roadCode
     ORDER BY COUNT(DISTINCT a.id) DESC
 """)
-    List<RoadSearchProjectionDTO> getRoadByRoadCode(@Param("term") String term, Pageable pageable);
+    List<RoadSearchProjectionDTO> searchRoads(
+            @Param("term") String term,
+            Pageable pageable
+    );
 
 
 
