@@ -1,9 +1,13 @@
 package com.example.beltwise_api.analytics.services;
 
 import com.example.beltwise_api.accident.models.Accident;
-import com.example.beltwise_api.analytics.dtos.*;
-import com.example.beltwise_api.analytics.enums.SeverityDistributionType;
-import com.example.beltwise_api.analytics.enums.TimeDistributionType;
+import com.example.beltwise_api.analytics.dtos.dashboard.*;
+import com.example.beltwise_api.analytics.dtos.ranking.CityRankingResponseDTO;
+import com.example.beltwise_api.analytics.enums.ranking.CityRankingCriteriaType;
+import com.example.beltwise_api.analytics.enums.OrderByType;
+import com.example.beltwise_api.analytics.enums.dashboard.SeverityDistributionType;
+import com.example.beltwise_api.analytics.enums.dashboard.TimeDistributionType;
+import com.example.beltwise_api.analytics.enums.ranking.RankingType;
 import com.example.beltwise_api.analytics.repositories.AnalyticsRepository;
 import com.example.beltwise_api.analytics.specifications.AnalyticsFilterSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -245,6 +249,16 @@ public class AnalyticsService {
            case ACCIDENT -> this.analyticsRepository.getTimeDistributionByAccident(specification);
            default -> throw new IllegalArgumentException("Unsupported time distribution by type: " + type);
        };
+
+    }
+
+    public List<CityRankingResponseDTO> getCitiesRanking(CityRankingCriteriaType criteria, OrderByType orderByType) {
+
+        return switch (criteria){
+            case ACCIDENTS -> this.analyticsRepository.getCitiesRankingByAccidentsCount(orderByType);
+            case DEATHS -> this.analyticsRepository.getCitiesRankingByDeathsCount(orderByType);
+            case VEHICLES -> this.analyticsRepository.getCitiesRankingByVehiclesCount(orderByType);
+        };
 
     }
 }

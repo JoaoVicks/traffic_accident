@@ -1,4 +1,4 @@
-package com.example.beltwise_api.analytics.enums;
+package com.example.beltwise_api.analytics.enums.dashboard;
 
 public enum TimeDistributionType {
     VICTIM,

@@ -1,9 +1,9 @@
 package com.example.beltwise_api.analytics.controllers;
 
 
-import com.example.beltwise_api.analytics.dtos.*;
-import com.example.beltwise_api.analytics.enums.SeverityDistributionType;
-import com.example.beltwise_api.analytics.enums.TimeDistributionType;
+import com.example.beltwise_api.analytics.dtos.dashboard.*;
+import com.example.beltwise_api.analytics.enums.dashboard.SeverityDistributionType;
+import com.example.beltwise_api.analytics.enums.dashboard.TimeDistributionType;
 import com.example.beltwise_api.analytics.services.AnalyticsService;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,5 +52,8 @@ public class AnalyticsController {
     ){
         return this.analyticsService.getTimeDistribution(filter,type);
     }
+
+
+
 
 }

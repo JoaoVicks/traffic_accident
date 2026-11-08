@@ -1,4 +1,4 @@
-package com.example.beltwise_api.analytics.dtos;
+package com.example.beltwise_api.analytics.dtos.dashboard;
 
 import java.time.LocalTime;
 
