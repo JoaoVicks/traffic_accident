@@ -7,7 +7,6 @@ import com.example.beltwise_api.analytics.enums.ranking.CityRankingCriteriaType;
 import com.example.beltwise_api.analytics.enums.OrderByType;
 import com.example.beltwise_api.analytics.enums.dashboard.SeverityDistributionType;
 import com.example.beltwise_api.analytics.enums.dashboard.TimeDistributionType;
-import com.example.beltwise_api.analytics.enums.ranking.RankingType;
 import com.example.beltwise_api.analytics.repositories.AnalyticsRepository;
 import com.example.beltwise_api.analytics.specifications.AnalyticsFilterSpecification;
 import org.springframework.beans.factory.annotation.Autowired;

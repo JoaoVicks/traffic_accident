@@ -4,7 +4,6 @@ package com.example.beltwise_api.analytics.controllers;
 import com.example.beltwise_api.analytics.dtos.ranking.CityRankingResponseDTO;
 import com.example.beltwise_api.analytics.enums.ranking.CityRankingCriteriaType;
 import com.example.beltwise_api.analytics.enums.OrderByType;
-import com.example.beltwise_api.analytics.enums.ranking.RankingType;
 import com.example.beltwise_api.analytics.services.AnalyticsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
