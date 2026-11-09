@@ -28,8 +28,12 @@ public class AnalyticsController {
     @GetMapping("/severity-distribution/{type}")
     public List<SeverityDistributionResponseDTO> getSeverityDistributionAccident(
             @ModelAttribute AnalyticFilterDTO filter,
-            @PathVariable SeverityDistributionType type){
-      return this.analyticsService.getSeverityDistribution(filter,type);
+            @PathVariable String type){
+
+        SeverityDistributionType severityDistributionType =  SeverityDistributionType.valueOf(type.toUpperCase());
+
+
+      return this.analyticsService.getSeverityDistribution(filter,severityDistributionType);
     }
 
 
@@ -48,9 +52,13 @@ public class AnalyticsController {
     @GetMapping("/time-distribution/{type}")
     public List<TimeDistributionResponseDTO> getWeatherDistribution(
             @ModelAttribute AnalyticFilterDTO filter,
-            @PathVariable TimeDistributionType type
+            @PathVariable String type
     ){
-        return this.analyticsService.getTimeDistribution(filter,type);
+
+        TimeDistributionType timeDistributionType = TimeDistributionType.valueOf(type.toUpperCase());
+
+
+        return this.analyticsService.getTimeDistribution(filter,timeDistributionType);
     }
 
 
