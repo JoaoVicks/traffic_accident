@@ -24,19 +24,20 @@ import java.util.List;
 public class AnalyticsRepository {
 
     private final EntityManager entityManager;
+    private final CriteriaBuilder criteriaBuilder;
 
     @Autowired
     public AnalyticsRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
+        this.criteriaBuilder = entityManager.getCriteriaBuilder();
     }
 
 
     public AccidentSummaryResponseDTO getSummary(Specification<Accident> specification) {
 
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
         // what the request must return
-        CriteriaQuery<AccidentSummaryResponseDTO> query = criteriaBuilder.createQuery(AccidentSummaryResponseDTO.class);
+        CriteriaQuery<AccidentSummaryResponseDTO> query = this.criteriaBuilder.createQuery(AccidentSummaryResponseDTO.class);
 
         // where the query comes from
         Root<Accident> root = query.from(Accident.class);
@@ -68,11 +69,9 @@ public class AnalyticsRepository {
 
     public List<SeverityDistributionResponseDTO> getSeverityDistributionAccident(Specification<Accident> specification) {
 
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
         // what the request must return
         CriteriaQuery<SeverityDistributionResponseDTO> query =
-                criteriaBuilder.createQuery(SeverityDistributionResponseDTO.class);
+                this.criteriaBuilder.createQuery(SeverityDistributionResponseDTO.class);
 
         // where the query comes from
         Root<Accident> root = query.from(Accident.class);
@@ -99,11 +98,9 @@ public class AnalyticsRepository {
 
     public List<SeverityDistributionResponseDTO> getSeverityDistributionVictim(Specification<Accident> specification) {
 
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
         // what the request must return
         CriteriaQuery<SeverityDistributionResponseDTO> query =
-                criteriaBuilder.createQuery(SeverityDistributionResponseDTO.class);
+                this.criteriaBuilder.createQuery(SeverityDistributionResponseDTO.class);
 
         // where the query comes from
         Root<Accident> root = query.from(Accident.class);
@@ -138,11 +135,9 @@ public class AnalyticsRepository {
 
     public List<VehiclesDistributionResponseDTO> getVehicleDistribution(Specification<Accident> specification) {
 
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
         // what the request must return
         CriteriaQuery<VehiclesDistributionResponseDTO> query =
-                criteriaBuilder.createQuery(VehiclesDistributionResponseDTO.class);
+                this.criteriaBuilder.createQuery(VehiclesDistributionResponseDTO.class);
 
         // where the query comes from
         Root<Accident> root = query.from(Accident.class);
@@ -170,12 +165,9 @@ public class AnalyticsRepository {
     }
 
     public List<WeatherDistributionResponseDTO> getWeatherDistribution(Specification<Accident> specification) {
-
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
         // what the request must return
         CriteriaQuery<WeatherDistributionResponseDTO> query =
-                criteriaBuilder.createQuery(WeatherDistributionResponseDTO.class);
+                this.criteriaBuilder.createQuery(WeatherDistributionResponseDTO.class);
 
         // where the query comes from
         Root<Accident> root = query.from(Accident.class);
@@ -293,11 +285,10 @@ public class AnalyticsRepository {
 
 
     public List<CityRankingResponseDTO> getCitiesRankingByDeathsCount(OrderByType orderByType) {
-               CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
         // what the request must return
         CriteriaQuery<CityRankingResponseDTO> query =
-                criteriaBuilder.createQuery(CityRankingResponseDTO.class);
+                this.criteriaBuilder.createQuery(CityRankingResponseDTO.class);
 
         // where the query comes from
         Root<City> root = query.from(City.class);
@@ -334,11 +325,10 @@ public class AnalyticsRepository {
 
 
     public List<CityRankingResponseDTO> getCitiesRankingByVehiclesCount(OrderByType orderByType) {
-                CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
         // what the request must return
         CriteriaQuery<CityRankingResponseDTO> query =
-                criteriaBuilder.createQuery(CityRankingResponseDTO.class);
+                this.criteriaBuilder.createQuery(CityRankingResponseDTO.class);
 
         // where the query comes from
         Root<City> root = query.from(City.class);
@@ -378,11 +368,11 @@ public class AnalyticsRepository {
     }
 
     public List<CityRankingResponseDTO> getCitiesRankingByAccidentsCount(OrderByType orderByType) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
 
         // what the request must return
         CriteriaQuery<CityRankingResponseDTO> query =
-                criteriaBuilder.createQuery(CityRankingResponseDTO.class);
+               this.criteriaBuilder.createQuery(CityRankingResponseDTO.class);
 
         // where the query comes from
         Root<City> root = query.from(City.class);
@@ -421,11 +411,10 @@ public class AnalyticsRepository {
 
 
     public List<RoadRankingResponseDTO> getRoadsRankingByDeathsCount(OrderByType orderByType) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
         // what the request must return
         CriteriaQuery<RoadRankingResponseDTO> query =
-                criteriaBuilder.createQuery(RoadRankingResponseDTO.class);
+                this.criteriaBuilder.createQuery(RoadRankingResponseDTO.class);
 
         // where the query comes from
         Root<Road> root = query.from(Road.class);
@@ -462,11 +451,9 @@ public class AnalyticsRepository {
     }
 
     public List<RoadRankingResponseDTO> getRoadsRankingByAccidentsCount(OrderByType orderByType) {
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
         // what the request must return
         CriteriaQuery<RoadRankingResponseDTO> query =
-                criteriaBuilder.createQuery(RoadRankingResponseDTO.class);
+               this.criteriaBuilder.createQuery(RoadRankingResponseDTO.class);
 
         // where the query comes from
         Root<Road> root = query.from(Road.class);
@@ -506,12 +493,9 @@ public class AnalyticsRepository {
 
 
     public List<RoadRankingResponseDTO> getRoadsRankingByVehiclesCount(OrderByType orderByType) {
-
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
         // what the request must return
         CriteriaQuery<RoadRankingResponseDTO> query =
-                criteriaBuilder.createQuery(RoadRankingResponseDTO.class);
+                this.criteriaBuilder.createQuery(RoadRankingResponseDTO.class);
 
         // where the query comes from
         Root<Road> root = query.from(Road.class);

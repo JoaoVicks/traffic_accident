@@ -31,7 +31,6 @@ public class Road {
   @Column(name = "road_prefix")
   private String roadPrefix;
 
-
   @ManyToMany(mappedBy = "roads")
   private List<City> cities;
 
