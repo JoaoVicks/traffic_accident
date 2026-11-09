@@ -3,8 +3,10 @@ package com.example.beltwise_api.analytics.repositories;
 import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.analytics.dtos.dashboard.*;
 import com.example.beltwise_api.analytics.dtos.ranking.CityRankingResponseDTO;
+import com.example.beltwise_api.analytics.dtos.ranking.RoadRankingResponseDTO;
 import com.example.beltwise_api.analytics.enums.OrderByType;
 import com.example.beltwise_api.city.models.City;
+import com.example.beltwise_api.road.models.Road;
 import com.example.beltwise_api.vehicle.models.Vehicle;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
@@ -344,7 +346,7 @@ public class AnalyticsRepository {
 
         Join<City,Accident> accidentJoin = root.join("accidents",JoinType.LEFT);
 
-        Expression<Long> vehiclesCount = criteriaBuilder.sum(accidentJoin.get("vehicleCount")).cast(Long.class);
+        Expression<Long> vehicleCount = criteriaBuilder.sum(accidentJoin.get("vehicleCount")).cast(Long.class);
 
 
         query.select(
@@ -352,7 +354,7 @@ public class AnalyticsRepository {
                         CityRankingResponseDTO.class,
                         root.get("id"),
                         root.get("cityName"),
-                        vehiclesCount
+                        vehicleCount
                 )
         );
 
@@ -362,8 +364,8 @@ public class AnalyticsRepository {
 
         query.orderBy(
                 orderByType == OrderByType.ASC
-                        ? criteriaBuilder.asc(vehiclesCount)
-                        : criteriaBuilder.desc(vehiclesCount),
+                        ? criteriaBuilder.asc(vehicleCount)
+                        : criteriaBuilder.desc(vehicleCount),
 
                 criteriaBuilder.asc(root.get("cityName"))
         );
@@ -376,7 +378,7 @@ public class AnalyticsRepository {
     }
 
     public List<CityRankingResponseDTO> getCitiesRankingByAccidentsCount(OrderByType orderByType) {
-               CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
         // what the request must return
         CriteriaQuery<CityRankingResponseDTO> query =
@@ -415,6 +417,134 @@ public class AnalyticsRepository {
 
         return entityManager.createQuery(query).setMaxResults(10).getResultList();
 
+    }
+
+
+    public List<RoadRankingResponseDTO> getRoadsRankingByDeathsCount(OrderByType orderByType) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        // what the request must return
+        CriteriaQuery<RoadRankingResponseDTO> query =
+                criteriaBuilder.createQuery(RoadRankingResponseDTO.class);
+
+        // where the query comes from
+        Root<Road> root = query.from(Road.class);
+
+        Join<Road,Accident> accidentJoin = root.join("accidents",JoinType.LEFT);
+
+        Expression<Long> deathsCount = criteriaBuilder.sum(accidentJoin.get("fatalities")).cast(Long.class);
+
+
+        query.select(
+                criteriaBuilder.construct(
+                        RoadRankingResponseDTO.class,
+                        root.get("id"),
+                        root.get("roadPrefix"),
+                        root.get("roadCode"),
+                        deathsCount
+                )
+        );
+
+
+
+        query.groupBy(root.get("id"),root.get("roadPrefix"),root.get("roadCode"));
+
+        query.orderBy(
+                orderByType == OrderByType.ASC
+                        ? criteriaBuilder.asc(deathsCount)
+                        : criteriaBuilder.desc(deathsCount),
+
+                criteriaBuilder.asc(root.get("roadCode"))
+        );
+
+        return entityManager.createQuery(query).setMaxResults(10).getResultList();
+
+    }
+
+    public List<RoadRankingResponseDTO> getRoadsRankingByAccidentsCount(OrderByType orderByType) {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        // what the request must return
+        CriteriaQuery<RoadRankingResponseDTO> query =
+                criteriaBuilder.createQuery(RoadRankingResponseDTO.class);
+
+        // where the query comes from
+        Root<Road> root = query.from(Road.class);
+
+        Join<Road,Accident> accidentJoin = root.join("accidents",JoinType.LEFT);
+
+        Expression<Long> accidentCount = criteriaBuilder.count(accidentJoin).cast(Long.class);
+
+
+        query.select(
+                criteriaBuilder.construct(
+                        RoadRankingResponseDTO.class,
+                        root.get("id"),
+                        root.get("roadPrefix"),
+                        root.get("roadCode"),
+                        accidentCount
+                )
+        );
+
+
+
+        query.groupBy(root.get("id"),root.get("roadPrefix"),root.get("roadCode"));
+
+        query.orderBy(
+                orderByType == OrderByType.ASC
+                        ? criteriaBuilder.asc(accidentCount)
+                        : criteriaBuilder.desc(accidentCount),
+
+                criteriaBuilder.asc(root.get("roadCode"))
+        );
+
+
+        return entityManager.createQuery(query).setMaxResults(10).getResultList();
+    }
+
+
+
+
+    public List<RoadRankingResponseDTO> getRoadsRankingByVehiclesCount(OrderByType orderByType) {
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+
+        // what the request must return
+        CriteriaQuery<RoadRankingResponseDTO> query =
+                criteriaBuilder.createQuery(RoadRankingResponseDTO.class);
+
+        // where the query comes from
+        Root<Road> root = query.from(Road.class);
+
+        Join<Road,Accident> accidentJoin = root.join("accidents",JoinType.LEFT);
+
+        Expression<Long> vehiclesCount = criteriaBuilder.sum(accidentJoin.get("vehicleCount")).cast(Long.class);
+
+
+        query.select(
+                criteriaBuilder.construct(
+                        RoadRankingResponseDTO.class,
+                        root.get("id"),
+                        root.get("roadPrefix"),
+                        root.get("roadCode"),
+                        vehiclesCount
+                )
+        );
+
+
+
+        query.groupBy(root.get("id"),root.get("roadPrefix"),root.get("roadCode"));
+
+        query.orderBy(
+                orderByType == OrderByType.ASC
+                        ? criteriaBuilder.asc(vehiclesCount)
+                        : criteriaBuilder.desc(vehiclesCount),
+
+                criteriaBuilder.asc(root.get("roadCode"))
+        );
+
+
+        return entityManager.createQuery(query).setMaxResults(10).getResultList();
     }
 
 
