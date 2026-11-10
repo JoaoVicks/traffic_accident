@@ -3,6 +3,7 @@ package com.example.beltwise_api.analytics.repositories;
 import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.analytics.dtos.dashboard.*;
 import com.example.beltwise_api.analytics.dtos.ranking.CityRankingResponseDTO;
+import com.example.beltwise_api.analytics.dtos.ranking.PageRequestDTO;
 import com.example.beltwise_api.analytics.dtos.ranking.RoadRankingResponseDTO;
 import com.example.beltwise_api.analytics.dtos.ranking.StateRankingResponseDTO;
 import com.example.beltwise_api.analytics.enums.OrderByType;
@@ -286,7 +287,7 @@ public class AnalyticsRepository {
 
 
 
-    public List<CityRankingResponseDTO> getCitiesRankingByDeathsCount(OrderByType orderByType) {
+    public List<CityRankingResponseDTO> getCitiesRankingByDeathsCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
 
         // what the request must return
         CriteriaQuery<CityRankingResponseDTO> query =
@@ -321,12 +322,12 @@ public class AnalyticsRepository {
                 criteriaBuilder.asc(root.get("cityName"))
         );
 
-        return entityManager.createQuery(query).setMaxResults(10).getResultList();
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
     }
 
 
 
-    public List<CityRankingResponseDTO> getCitiesRankingByVehiclesCount(OrderByType orderByType) {
+    public List<CityRankingResponseDTO> getCitiesRankingByVehiclesCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
 
         // what the request must return
         CriteriaQuery<CityRankingResponseDTO> query =
@@ -363,13 +364,12 @@ public class AnalyticsRepository {
         );
 
 
-
-        return entityManager.createQuery(query).setMaxResults(10).getResultList();
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
 
 
     }
 
-    public List<CityRankingResponseDTO> getCitiesRankingByAccidentsCount(OrderByType orderByType) {
+    public List<CityRankingResponseDTO> getCitiesRankingByAccidentsCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
 
 
         // what the request must return
@@ -407,12 +407,12 @@ public class AnalyticsRepository {
 
 
 
-        return entityManager.createQuery(query).setMaxResults(10).getResultList();
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
 
     }
 
 
-    public List<RoadRankingResponseDTO> getRoadsRankingByDeathsCount(OrderByType orderByType) {
+    public List<RoadRankingResponseDTO> getRoadsRankingByDeathsCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
 
         // what the request must return
         CriteriaQuery<RoadRankingResponseDTO> query =
@@ -448,12 +448,12 @@ public class AnalyticsRepository {
                 criteriaBuilder.asc(root.get("roadCode"))
         );
 
-        return entityManager.createQuery(query).setMaxResults(10).getResultList();
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
 
     }
 
 
-    public List<RoadRankingResponseDTO> getRoadsRankingByAccidentsCount(OrderByType orderByType) {
+    public List<RoadRankingResponseDTO> getRoadsRankingByAccidentsCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
 
 
         // what the request must return
@@ -491,13 +491,13 @@ public class AnalyticsRepository {
         );
 
 
-        return entityManager.createQuery(query).setMaxResults(10).getResultList();
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
     }
 
 
 
 
-    public List<RoadRankingResponseDTO> getRoadsRankingByVehiclesCount(OrderByType orderByType) {
+    public List<RoadRankingResponseDTO> getRoadsRankingByVehiclesCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
 
 
         // what the request must return
@@ -535,11 +535,11 @@ public class AnalyticsRepository {
         );
 
 
-        return entityManager.createQuery(query).setMaxResults(10).getResultList();
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
     }
 
 
-    public List<StateRankingResponseDTO> getStatesRankingByAccidentsCount(OrderByType orderByType) {
+    public List<StateRankingResponseDTO> getStatesRankingByAccidentsCount(OrderByType orderByType, PageRequestDTO pageRequestDTO) {
 
         // what the request must return
         CriteriaQuery<StateRankingResponseDTO> query =
@@ -574,11 +574,11 @@ public class AnalyticsRepository {
                 criteriaBuilder.asc(root.get("stateCode"))
         );
 
-        return  entityManager.createQuery(query).setMaxResults(10).getResultList();
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
 
     }
 
-    public List<StateRankingResponseDTO> getStatesRankingByDeathsCount(OrderByType orderByType) {
+    public List<StateRankingResponseDTO> getStatesRankingByDeathsCount(OrderByType orderByType, PageRequestDTO pageRequestDTO) {
 
         // what the request must return
         CriteriaQuery<StateRankingResponseDTO> query =
@@ -612,13 +612,13 @@ public class AnalyticsRepository {
                 criteriaBuilder.asc(root.get("stateCode"))
         );
 
-        return  entityManager.createQuery(query).setMaxResults(10).getResultList();
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
 
 
     }
 
 
-    public List<StateRankingResponseDTO> getStatesRankingByVehiclesCount(OrderByType orderByType) {
+    public List<StateRankingResponseDTO> getStatesRankingByVehiclesCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
 
         // what the request must return
         CriteriaQuery<StateRankingResponseDTO> query =
@@ -652,7 +652,7 @@ public class AnalyticsRepository {
                 criteriaBuilder.asc(root.get("stateCode"))
         );
 
-        return  entityManager.createQuery(query).setMaxResults(10).getResultList();
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
 
     }
 

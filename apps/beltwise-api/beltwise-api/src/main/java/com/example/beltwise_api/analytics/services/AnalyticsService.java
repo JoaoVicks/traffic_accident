@@ -3,6 +3,7 @@ package com.example.beltwise_api.analytics.services;
 import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.analytics.dtos.dashboard.*;
 import com.example.beltwise_api.analytics.dtos.ranking.CityRankingResponseDTO;
+import com.example.beltwise_api.analytics.dtos.ranking.PageRequestDTO;
 import com.example.beltwise_api.analytics.dtos.ranking.RoadRankingResponseDTO;
 import com.example.beltwise_api.analytics.dtos.ranking.StateRankingResponseDTO;
 import com.example.beltwise_api.analytics.enums.ranking.CityRankingCriteriaType;
@@ -112,7 +113,6 @@ public class AnalyticsService {
         return switch (type) {
             case ACCIDENT -> this.analyticsRepository.getSeverityDistributionAccident(specification);
             case VICTIM -> this.analyticsRepository.getSeverityDistributionVictim(specification);
-            default -> throw new IllegalArgumentException("Unsupported severity distribution by type: " + type);
         };
 
 
@@ -248,37 +248,36 @@ public class AnalyticsService {
        return switch (type){
            case VICTIM -> this.analyticsRepository.getTimeDistributionByVictim(specification);
            case ACCIDENT -> this.analyticsRepository.getTimeDistributionByAccident(specification);
-           default -> throw new IllegalArgumentException("Unsupported time distribution by type: " + type);
        };
 
     }
 
-    public List<CityRankingResponseDTO> getCitiesRanking(CityRankingCriteriaType criteria, OrderByType orderByType) {
+    public List<CityRankingResponseDTO> getCitiesRanking(CityRankingCriteriaType criteria, OrderByType orderByType, PageRequestDTO pageRequestDTO) {
 
         return switch (criteria){
-            case ACCIDENTS -> this.analyticsRepository.getCitiesRankingByAccidentsCount(orderByType);
-            case DEATHS -> this.analyticsRepository.getCitiesRankingByDeathsCount(orderByType);
-            case VEHICLES -> this.analyticsRepository.getCitiesRankingByVehiclesCount(orderByType);
+            case ACCIDENTS -> this.analyticsRepository.getCitiesRankingByAccidentsCount(orderByType,pageRequestDTO);
+            case DEATHS -> this.analyticsRepository.getCitiesRankingByDeathsCount(orderByType, pageRequestDTO);
+            case VEHICLES -> this.analyticsRepository.getCitiesRankingByVehiclesCount(orderByType ,pageRequestDTO);
         };
 
     }
 
-    public List<RoadRankingResponseDTO> getRoadsRanking(CityRankingCriteriaType criteria, OrderByType orderByType) {
+    public List<RoadRankingResponseDTO> getRoadsRanking(CityRankingCriteriaType criteria, OrderByType orderByType, PageRequestDTO pageRequestDTO) {
 
         return switch (criteria){
-            case ACCIDENTS -> this.analyticsRepository.getRoadsRankingByAccidentsCount(orderByType);
-            case DEATHS -> this.analyticsRepository.getRoadsRankingByDeathsCount(orderByType);
-            case VEHICLES -> this.analyticsRepository.getRoadsRankingByVehiclesCount(orderByType);
+            case ACCIDENTS -> this.analyticsRepository.getRoadsRankingByAccidentsCount(orderByType,pageRequestDTO);
+            case DEATHS -> this.analyticsRepository.getRoadsRankingByDeathsCount(orderByType,pageRequestDTO);
+            case VEHICLES -> this.analyticsRepository.getRoadsRankingByVehiclesCount(orderByType,pageRequestDTO);
         };
 
     }
 
-    public List<StateRankingResponseDTO> getStatesRanking(CityRankingCriteriaType criteria, OrderByType orderByType) {
+    public List<StateRankingResponseDTO> getStatesRanking(CityRankingCriteriaType criteria, OrderByType orderByType, PageRequestDTO pageRequestDTO) {
 
         return switch (criteria){
-            case ACCIDENTS -> this.analyticsRepository.getStatesRankingByAccidentsCount(orderByType);
-            case DEATHS -> this.analyticsRepository.getStatesRankingByDeathsCount(orderByType);
-            case VEHICLES -> this.analyticsRepository.getStatesRankingByVehiclesCount(orderByType);
+            case ACCIDENTS -> this.analyticsRepository.getStatesRankingByAccidentsCount(orderByType, pageRequestDTO);
+            case DEATHS -> this.analyticsRepository.getStatesRankingByDeathsCount(orderByType, pageRequestDTO);
+            case VEHICLES -> this.analyticsRepository.getStatesRankingByVehiclesCount(orderByType, pageRequestDTO);
         };
 
     }
