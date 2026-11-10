@@ -3,6 +3,7 @@ package com.example.beltwise_api.analytics.controllers;
 
 import com.example.beltwise_api.analytics.dtos.ranking.CityRankingResponseDTO;
 import com.example.beltwise_api.analytics.dtos.ranking.RoadRankingResponseDTO;
+import com.example.beltwise_api.analytics.dtos.ranking.StateRankingResponseDTO;
 import com.example.beltwise_api.analytics.enums.ranking.CityRankingCriteriaType;
 import com.example.beltwise_api.analytics.enums.OrderByType;
 import com.example.beltwise_api.analytics.services.AnalyticsService;
@@ -47,6 +48,20 @@ public class RankingController {
 
 
         return this.analyticsService.getRoadsRanking(criteria, orderByType);
+
+    }
+
+
+
+    @GetMapping("/states/{by}/{order}")
+    public List<StateRankingResponseDTO> getStatesRanking(@PathVariable String by, @PathVariable String order) {
+
+        CityRankingCriteriaType criteria = CityRankingCriteriaType.valueOf(by.toUpperCase());
+
+        OrderByType orderByType = OrderByType.valueOf(order.toUpperCase());
+
+
+        return this.analyticsService.getStatesRanking(criteria, orderByType);
 
     }
 

@@ -4,6 +4,7 @@ import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.analytics.dtos.dashboard.*;
 import com.example.beltwise_api.analytics.dtos.ranking.CityRankingResponseDTO;
 import com.example.beltwise_api.analytics.dtos.ranking.RoadRankingResponseDTO;
+import com.example.beltwise_api.analytics.dtos.ranking.StateRankingResponseDTO;
 import com.example.beltwise_api.analytics.enums.ranking.CityRankingCriteriaType;
 import com.example.beltwise_api.analytics.enums.OrderByType;
 import com.example.beltwise_api.analytics.enums.dashboard.SeverityDistributionType;
@@ -268,6 +269,16 @@ public class AnalyticsService {
             case ACCIDENTS -> this.analyticsRepository.getRoadsRankingByAccidentsCount(orderByType);
             case DEATHS -> this.analyticsRepository.getRoadsRankingByDeathsCount(orderByType);
             case VEHICLES -> this.analyticsRepository.getRoadsRankingByVehiclesCount(orderByType);
+        };
+
+    }
+
+    public List<StateRankingResponseDTO> getStatesRanking(CityRankingCriteriaType criteria, OrderByType orderByType) {
+
+        return switch (criteria){
+            case ACCIDENTS -> this.analyticsRepository.getStatesRankingByAccidentsCount(orderByType);
+            case DEATHS -> this.analyticsRepository.getStatesRankingByDeathsCount(orderByType);
+            case VEHICLES -> this.analyticsRepository.getStatesRankingByVehiclesCount(orderByType);
         };
 
     }

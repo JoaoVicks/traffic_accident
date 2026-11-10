@@ -26,6 +26,4 @@ public class State {
     private List<City> cities;
 
 
-
-
 }
