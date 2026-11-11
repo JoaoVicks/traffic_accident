@@ -1,6 +1,7 @@
 package com.example.beltwise_api.analytics.services;
 
 import com.example.beltwise_api.accident.models.Accident;
+import com.example.beltwise_api.analytics.builders.AnalyticsFilterSpecificationBuilder;
 import com.example.beltwise_api.analytics.dtos.dashboard.*;
 import com.example.beltwise_api.analytics.dtos.ranking.CityRankingResponseDTO;
 import com.example.beltwise_api.analytics.dtos.ranking.PageRequestDTO;
@@ -22,53 +23,18 @@ import java.util.List;
 public class AnalyticsService {
 
     private final AnalyticsRepository analyticsRepository;
+    private final AnalyticsFilterSpecificationBuilder analyticsFilterSpecificationBuilder;
 
     @Autowired
-    public AnalyticsService(AnalyticsRepository analyticsRepository) {
+    public AnalyticsService(AnalyticsRepository analyticsRepository, AnalyticsFilterSpecificationBuilder analyticsFilterSpecificationBuilder) {
         this.analyticsRepository = analyticsRepository;
+        this.analyticsFilterSpecificationBuilder = analyticsFilterSpecificationBuilder;
     }
 
 
     public AccidentSummaryResponseDTO getSummary(AnalyticFilterDTO filter) {
 
-        Specification<Accident> specification = Specification.unrestricted();
-
-        assert filter != null;
-
-        if (filter.startDate() != null) {
-            specification = specification.and(
-                AnalyticsFilterSpecification.hasDateGreaterThanOrEqualTo(filter.startDate())
-            );
-        }
-        if (filter.endDate() != null) {
-            specification = specification.and(
-                AnalyticsFilterSpecification.hasDateLessThanOrEqualTo(filter.endDate())
-            );
-        }
-
-        if(filter.vehicleType() != null){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasVehicleType(filter.vehicleType())
-            );
-        }
-
-        if(filter.startTime() != null ){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hastTimeGreaterThanOrEqualTo(filter.startTime())
-            );
-        }
-
-        if(filter.endTime() != null ){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hastTimeLessThanOrEqualTo(filter.endTime())
-            );
-        }
-
-        if (filter.accidentClassification() != null){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasAccidentClassification(filter.accidentClassification())
-            );
-        }
+        Specification<Accident> specification = this.analyticsFilterSpecificationBuilder.build(filter);
 
 
         return this.analyticsRepository.getSummary(specification);
@@ -76,38 +42,7 @@ public class AnalyticsService {
 
     public List<SeverityDistributionResponseDTO> getSeverityDistribution(AnalyticFilterDTO filter, SeverityDistributionType type) {
 
-        Specification<Accident> specification = Specification.unrestricted();
-
-        assert filter != null;
-
-        if (filter.startDate() != null) {
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasDateGreaterThanOrEqualTo(filter.startDate())
-            );
-        }
-        if (filter.endDate() != null) {
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasDateLessThanOrEqualTo(filter.endDate())
-            );
-        }
-
-        if (filter.vehicleType() != null) {
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasVehicleType(filter.vehicleType())
-            );
-        }
-
-        if (filter.startTime() != null) {
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hastTimeGreaterThanOrEqualTo(filter.startTime())
-            );
-        }
-
-        if (filter.endTime() != null) {
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hastTimeLessThanOrEqualTo(filter.endTime())
-            );
-        }
+        Specification<Accident> specification = this.analyticsFilterSpecificationBuilder.build(filter);
 
 
         return switch (type) {
@@ -120,39 +55,7 @@ public class AnalyticsService {
 
     public List<VehiclesDistributionResponseDTO> getVehicleDistribution(AnalyticFilterDTO filter) {
 
-        Specification<Accident> specification = Specification.unrestricted();
-
-        assert filter != null;
-
-        if (filter.startDate() != null) {
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasDateGreaterThanOrEqualTo(filter.startDate())
-            );
-        }
-        if (filter.endDate() != null) {
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasDateLessThanOrEqualTo(filter.endDate())
-            );
-        }
-
-        if(filter.startTime() != null ){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hastTimeGreaterThanOrEqualTo(filter.startTime())
-            );
-        }
-
-        if(filter.endTime() != null ){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hastTimeLessThanOrEqualTo(filter.endTime())
-            );
-        }
-
-        if (filter.accidentClassification() != null){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasAccidentClassification(filter.accidentClassification())
-            );
-        }
-
+        Specification<Accident> specification = this.analyticsFilterSpecificationBuilder.build(filter);
 
         return this.analyticsRepository.getVehicleDistribution(specification);
     }
@@ -160,44 +63,7 @@ public class AnalyticsService {
 
     public List<WeatherDistributionResponseDTO> getWeatherDistribution(AnalyticFilterDTO filter) {
 
-        Specification<Accident> specification = Specification.unrestricted();
-
-        assert filter != null;
-
-        if (filter.startDate() != null) {
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasDateGreaterThanOrEqualTo(filter.startDate())
-            );
-        }
-        if (filter.endDate() != null) {
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasDateLessThanOrEqualTo(filter.endDate())
-            );
-        }
-
-        if(filter.vehicleType() != null){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasVehicleType(filter.vehicleType())
-            );
-        }
-
-        if(filter.startTime() != null ){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hastTimeGreaterThanOrEqualTo(filter.startTime())
-            );
-        }
-
-        if(filter.endTime() != null ){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hastTimeLessThanOrEqualTo(filter.endTime())
-            );
-        }
-
-        if (filter.accidentClassification() != null){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasAccidentClassification(filter.accidentClassification())
-            );
-        }
+        Specification<Accident> specification = this.analyticsFilterSpecificationBuilder.build(filter);
 
         return this.analyticsRepository.getWeatherDistribution(specification);
 
@@ -205,50 +71,13 @@ public class AnalyticsService {
 
     public List<TimeDistributionResponseDTO> getTimeDistribution(AnalyticFilterDTO filter, TimeDistributionType type) {
 
-        Specification<Accident> specification = Specification.unrestricted();
+        Specification<Accident> specification = this.analyticsFilterSpecificationBuilder.build(filter);
 
-        assert filter != null;
+                return switch (type){
+                    case VICTIM -> this.analyticsRepository.getTimeDistributionByVictim(specification);
+                    case ACCIDENT -> this.analyticsRepository.getTimeDistributionByAccident(specification);
+                };
 
-        if (filter.startDate() != null) {
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasDateGreaterThanOrEqualTo(filter.startDate())
-            );
-        }
-        if (filter.endDate() != null) {
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasDateLessThanOrEqualTo(filter.endDate())
-            );
-        }
-
-        if(filter.vehicleType() != null){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasVehicleType(filter.vehicleType())
-            );
-        }
-
-        if(filter.startTime() != null ){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hastTimeGreaterThanOrEqualTo(filter.startTime())
-            );
-        }
-
-        if(filter.endTime() != null ){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hastTimeLessThanOrEqualTo(filter.endTime())
-            );
-        }
-
-        if (filter.accidentClassification() != null){
-            specification = specification.and(
-                    AnalyticsFilterSpecification.hasAccidentClassification(filter.accidentClassification())
-            );
-        }
-
-
-       return switch (type){
-           case VICTIM -> this.analyticsRepository.getTimeDistributionByVictim(specification);
-           case ACCIDENT -> this.analyticsRepository.getTimeDistributionByAccident(specification);
-       };
 
     }
 

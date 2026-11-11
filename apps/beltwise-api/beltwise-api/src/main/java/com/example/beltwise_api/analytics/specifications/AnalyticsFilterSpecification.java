@@ -9,7 +9,7 @@ import org.springframework.data.jpa.domain.Specification;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public class AnalyticsFilterSpecification {
+public class  AnalyticsFilterSpecification {
 
     public static Specification<Accident> hasDateGreaterThanOrEqualTo(LocalDate startDate){
         return (
@@ -25,13 +25,13 @@ public class AnalyticsFilterSpecification {
                 );
     }
 
-    public static Specification<Accident> hastTimeGreaterThanOrEqualTo(LocalTime startTime){
+    public static Specification<Accident> hasTimeGreaterThanOrEqualTo(LocalTime startTime){
         return ((root, query, criteriaBuilder) ->
                 criteriaBuilder.greaterThanOrEqualTo(root.get("time"),startTime)
                 );
     }
 
-    public static Specification<Accident> hastTimeLessThanOrEqualTo(LocalTime endTime){
+    public static Specification<Accident> hasTimeLessThanOrEqualTo(LocalTime endTime){
         return ((root, query, criteriaBuilder) ->
                 criteriaBuilder.lessThanOrEqualTo(root.get("time"),endTime)
                 );
