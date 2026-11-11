@@ -13,7 +13,6 @@ public record AnalyticFilterDTO(
 
         @PastOrPresent(message = "End date cannot be in the future")
         LocalDate endDate,
-
         LocalTime startTime,
         LocalTime endTime,
         String vehicleType,
