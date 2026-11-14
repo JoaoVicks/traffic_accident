@@ -1,0 +1,385 @@
+/* ==========================================================================
+ * BELTWISE DESIGN SYSTEM — FOUNDATIONS: TYPOGRAPHY
+ * Source of Truth: Figma File Z8liAkOpRDdrA8qQfxAwXj (Frames C1, C2, C3)
+ * Classification: Existing node measurements; inferred role names (no local
+ *                 Figma Text Styles exist in the source file).
+ * ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..800;1,300..400&display=swap');
+
+:root {
+  /* ========================================================================
+   * FONT FAMILIES
+   * ======================================================================== */
+  --font-family-overpass: 'Overpass', sans-serif;
+  --font-sans: var(--font-family-overpass);
+
+  /* ========================================================================
+   * FONT WEIGHTS
+   * Application weights (C1 & C2): 300, 400, 500, 600, 800
+   * Foundation specimen weights (C3 only): 100, 200
+   * ======================================================================== */
+  --font-weight-thin: 100;       /* C3 foundation specimen only */
+  --font-weight-extralight: 200; /* C3 foundation specimen only */
+  --font-weight-light: 300;      /* C1 & C2 application weight */
+  --font-weight-regular: 400;    /* C1 & C2 application weight */
+  --font-weight-medium: 500;     /* C1 & C2 application weight */
+  --font-weight-semibold: 600;   /* C1 & C2 application weight */
+  --font-weight-extrabold: 800;  /* C1 application weight (label.cause) */
+
+  /* ========================================================================
+   * C1 — APPLICATION FONT SIZES (18:28 — 11 integer sizes across 25 roles)
+   * ======================================================================== */
+  --font-size-46: 46px; /* display.metric */
+  --font-size-26: 26px; /* brand.or.rankingNumber */
+  --font-size-24: 24px; /* heading.ranking */
+  --font-size-22: 22px; /* heading.context */
+  --font-size-20: 20px; /* contextual.typography */
+  --font-size-16: 16px; /* label.cause, label.navigation, heading.section */
+  --font-size-14: 14px; /* body.or.controlLabel, context.italic */
+  --font-size-13: 13px; /* body.compact */
+  --font-size-12: 12px; /* label.or.caption, context.italic */
+  --font-size-11: 11px; /* caption.legacy */
+  --font-size-10: 10px; /* caption.legacy, context.italic */
+
+  /* ========================================================================
+   * C2 — CONTEXTUAL EXCEPTION FONT SIZES (18:3402 — 17 fractional sizes)
+   * Normalization: Floating-point noise eliminated (up to 2 decimal places)
+   * ======================================================================== */
+  --font-size-45-080: 45.08px; /* display.metric.gauge (1:601)      | Raw Figma: 45.07961654663086px */
+  --font-size-26-248: 26.25px; /* contextual.typography (1:1451)    | Raw Figma: 26.248092651367188px */
+  --font-size-20-608: 20.61px; /* heading.accident (1:1680)         | Raw Figma: 20.608272552490234px */
+  --font-size-17-679: 17.68px; /* contextual.typography (1:1678)    | Raw Figma: 17.678569793701172px */
+  --font-size-16-069: 16.07px; /* contextual.typography (1:1679)    | Raw Figma: 16.068586349487305px */
+  --font-size-14-561: 14.56px; /* contextual.typography (1:343)     | Raw Figma: 14.560846328735352px */
+  --font-size-13-217: 13.22px; /* contextual.typography (1:1402)    | Raw Figma: 13.217391014099121px */
+  --font-size-13-164: 13.16px; /* contextual.typography (1:2291)    | Raw Figma: 13.164178848266602px */
+  --font-size-12-780: 12.78px; /* context.italic (1:342)            | Raw Figma: 12.779702186584473px */
+  --font-size-12-532: 12.53px; /* contextual.typography (1:339)     | Raw Figma: 12.531596183776855px */
+  --font-size-11-796: 11.8px;  /* contextual.typography (1:1563)    | Raw Figma: 11.795843124389648px */
+  --font-size-11-700: 11.7px;  /* contextual.typography (1:1653)    | Raw Figma: 11.700000762939453px */
+  --font-size-10-551: 10.55px; /* context.italic (1:1564)           | Raw Figma: 10.551325798034668px */
+  --font-size-10-479: 10.48px; /* caption.legacy (1:1562)           | Raw Figma: 10.478769302368164px */
+  --font-size-10-211: 10.21px; /* caption.legacy (1:344)            | Raw Figma: 10.211176872253418px */
+  --font-size-9-778: 9.78px;   /* caption.legacy (1:1619)           | Raw Figma: 9.777777671813965px */
+  --font-size-8-632: 8.63px;   /* caption.legacy (1:338)            | Raw Figma: 8.632070541381836px */
+
+  /* ========================================================================
+   * LINE HEIGHTS & LETTER SPACING
+   * ======================================================================== */
+  --line-height-auto: normal;   /* Figma: AUTO */
+  --line-height-20: 20px;       /* Figma: 20px (ranking rows & values) */
+  --line-height-100-pct: 100%;  /* Figma: 100% (12px Light filter clear action) */
+
+  --letter-spacing-0: 0em;      /* Figma: 0% across all typography records */
+
+  /* ========================================================================
+   * C3 — FOUNDATION SPECIMEN SIZES (18:3407 — Reference only, NOT app tokens)
+   * Documented on presentation board Frame 4 (Tipografia); float noise trimmed
+   * ======================================================================== */
+  --specimen-font-size-medium: 229.1px;      /* Raw Figma: 229.10000610351562px */
+  --specimen-font-size-regular: 193.1px;     /* Raw Figma: 193.09771728515625px */
+  --specimen-font-size-light: 166.54px;      /* Raw Figma: 166.54034423828125px */
+  --specimen-font-size-extralight: 148.99px; /* Raw Figma: 148.99131774902344px */
+  --specimen-font-size-thin: 130.92px;       /* Raw Figma: 130.91580200195312px */
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-overpass: var(--font-family-overpass);
+}
+
+/* ==========================================================================
+ * C1 — APPLICATION TYPOGRAPHY CLASSES (25 documented treatments in 18:28)
+ * Inferred role names from Figma 01 — Foundations
+ * ========================================================================== */
+
+/* 1. display.metric · Regular · 46px / AUTO */
+.type-display-metric-regular {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-46);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 2. display.metric · SemiBold · 46px / AUTO */
+.type-display-metric-semibold {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-46);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 3. brand.or.rankingNumber · Regular · 26px / AUTO */
+.type-brand-or-ranking-regular {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-26);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 4. brand.or.rankingNumber · SemiBold · 26px / AUTO */
+.type-brand-or-ranking-semibold {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-26);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 5. heading.ranking · Medium · 24px / AUTO */
+.type-heading-ranking {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-24);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 6. heading.context · Regular · 22px / AUTO */
+.type-heading-context {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-22);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 7. contextual.typography · SemiBold · 20px / AUTO */
+.type-contextual-20-semibold {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-20);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 8. label.cause · ExtraBold · 16px / AUTO */
+.type-label-cause {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-extrabold);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 9. label.navigation · Light · 16px / AUTO */
+.type-label-navigation {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 10. heading.section · Medium · 16px / AUTO */
+.type-heading-section-medium {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 11. heading.section · Regular · 16px / AUTO */
+.type-heading-section-regular {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-16);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 12. body.or.controlLabel · Light · 14px / AUTO */
+.type-body-control-light {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 13. body.or.controlLabel · Medium · 14px / AUTO */
+.type-body-control-medium {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 14. body.or.controlLabel · Regular · 14px / AUTO */
+.type-body-control-regular {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 15. body.or.controlLabel · Regular · 14px / 20px */
+.type-body-control-regular-lh20 {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-20);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 16. body.compact · Light · 13px / AUTO */
+.type-body-compact-light {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-13);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 17. body.compact · Regular · 13px / AUTO */
+.type-body-compact-regular {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-13);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 18. body.compact · Regular · 13px / 20px */
+.type-body-compact-regular-lh20 {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-13);
+  line-height: var(--line-height-20);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 19. label.or.caption · Light · 12px / 100% */
+.type-label-caption-light-tight {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-100-pct);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 20. label.or.caption · Medium · 12px / AUTO */
+.type-label-caption-medium {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 21. label.or.caption · Regular · 12px / AUTO */
+.type-label-caption-regular {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 22. label.or.caption · Regular · 12px / 20px */
+.type-label-caption-regular-lh20 {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-20);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 23. caption.legacy · Regular · 11px / AUTO */
+.type-caption-legacy-11-regular {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-11);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 24. caption.legacy · Light · 10px / AUTO */
+.type-caption-legacy-10-light {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-10);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* 25. caption.legacy · Regular · 10px / AUTO */
+.type-caption-legacy-10-regular {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-10);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+/* ==========================================================================
+ * C2 — CONTEXTUAL EXCEPTIONS & ITALIC TREATMENTS (18:3402)
+ * ========================================================================== */
+
+.type-display-metric-gauge {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-45-080);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+.type-heading-accident {
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-20-608);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+.type-context-italic-14-regular {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+.type-context-italic-14-light {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+.type-context-italic-12-regular {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+.type-context-italic-12-light {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-12);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}
+
+.type-context-italic-10-light {
+  font-family: var(--font-sans);
+  font-style: italic;
+  font-weight: var(--font-weight-light);
+  font-size: var(--font-size-10);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+}

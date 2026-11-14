@@ -1,0 +1,33 @@
+import type { SVGProps } from 'react';
+
+export type ChartLineIconProps = SVGProps<SVGSVGElement>;
+
+/** Analytics trend chart icon (`currentColor` stroke). */
+export function ChartLineIcon({ className = '', ...props }: ChartLineIconProps) {
+  return (
+    <svg
+      preserveAspectRatio="none"
+      overflow="visible"
+      viewBox="0 0 13 11.6667"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      className={`block size-full max-w-none ${className}`.trim()}
+      {...props}
+    >
+      <path
+        d="M0.500001 0.5V7.16667C0.500001 9.052 0.500001 9.99533 1.086 10.5807C1.67133 11.1667 2.61467 11.1667 4.5 11.1667H12.5"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M2.5 7.16676L4.66667 5.0001C5.096 4.57076 5.31067 4.3561 5.562 4.28543C5.73943 4.23541 5.92724 4.23541 6.10467 4.28543C6.356 4.3561 6.57067 4.57076 7 5.0001C7.42933 5.42943 7.644 5.6441 7.89533 5.71476C8.07267 5.76543 8.26067 5.76543 8.438 5.71476C8.68933 5.6441 8.904 5.42943 9.33333 5.0001L11.8333 2.5001"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+

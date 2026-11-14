@@ -1,0 +1,103 @@
+/* ==========================================================================
+ * BELTWISE APPLICATION STYLESHEET ENTRYPOINT
+ * ========================================================================== */
+
+@import './design-system/foundations/typography.css';
+@import 'tailwindcss';
+@import './design-system/foundations/tokens.css';
+@import './design-system/foundations/globals.css';
+
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-family-overpass);
+  --font-heading: var(--font-family-overpass);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: var(--radius-4);
+  --radius-md: var(--radius-6);
+  --radius-lg: var(--radius);
+  --radius-xl: var(--radius-10);
+  --radius-2xl: var(--radius-12);
+  --radius-3xl: var(--radius-16);
+  --radius-4xl: var(--radius-20);
+}
+
+:root {
+  --background: var(--background-canvas);
+  --foreground: var(--text-primary);
+  --card: var(--surface-panel);
+  --card-foreground: var(--text-primary);
+  --popover: var(--surface-inset);
+  --popover-foreground: var(--text-primary);
+  --primary: var(--action-selected-background);
+  --primary-foreground: var(--black-500);
+  --secondary: var(--surface-control);
+  --secondary-foreground: var(--text-primary);
+  --muted: var(--surface-inset);
+  --muted-foreground: var(--text-muted);
+  --accent: var(--surface-control-emphasis);
+  --accent-foreground: var(--text-primary);
+  --destructive: var(--primary-500);
+  --border: var(--border-subtle);
+  --input: var(--surface-control);
+  --ring: var(--action-selected-background);
+  --chart-1: var(--chart-severity-sequence-1);
+  --chart-2: var(--chart-severity-sequence-2);
+  --chart-3: var(--chart-severity-sequence-3);
+  --chart-4: var(--chart-severity-sequence-4);
+  --chart-5: var(--chart-total);
+  --radius: var(--radius-8);
+  --sidebar: var(--surface-panel);
+  --sidebar-foreground: var(--text-primary);
+  --sidebar-primary: var(--action-selected-background);
+  --sidebar-primary-foreground: var(--black-500);
+  --sidebar-accent: var(--surface-control-emphasis);
+  --sidebar-accent-foreground: var(--text-primary);
+  --sidebar-border: var(--border-subtle);
+  --sidebar-ring: var(--action-selected-background);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+}
