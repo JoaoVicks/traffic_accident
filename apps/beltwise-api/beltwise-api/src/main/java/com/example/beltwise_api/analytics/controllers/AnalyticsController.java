@@ -1,9 +1,9 @@
 package com.example.beltwise_api.analytics.controllers;
 
 
-import com.example.beltwise_api.analytics.dtos.*;
-import com.example.beltwise_api.analytics.enums.SeverityDistributionType;
-import com.example.beltwise_api.analytics.enums.TimeDistributionType;
+import com.example.beltwise_api.analytics.dtos.dashboard.*;
+import com.example.beltwise_api.analytics.enums.dashboard.SeverityDistributionType;
+import com.example.beltwise_api.analytics.enums.dashboard.TimeDistributionType;
 import com.example.beltwise_api.analytics.services.AnalyticsService;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,8 +28,12 @@ public class AnalyticsController {
     @GetMapping("/severity-distribution/{type}")
     public List<SeverityDistributionResponseDTO> getSeverityDistributionAccident(
             @ModelAttribute AnalyticFilterDTO filter,
-            @PathVariable SeverityDistributionType type){
-      return this.analyticsService.getSeverityDistribution(filter,type);
+            @PathVariable String type){
+
+        SeverityDistributionType severityDistributionType =  SeverityDistributionType.valueOf(type.toUpperCase());
+
+
+      return this.analyticsService.getSeverityDistribution(filter,severityDistributionType);
     }
 
 
@@ -48,9 +52,16 @@ public class AnalyticsController {
     @GetMapping("/time-distribution/{type}")
     public List<TimeDistributionResponseDTO> getWeatherDistribution(
             @ModelAttribute AnalyticFilterDTO filter,
-            @PathVariable TimeDistributionType type
+            @PathVariable String type
     ){
-        return this.analyticsService.getTimeDistribution(filter,type);
+
+        TimeDistributionType timeDistributionType = TimeDistributionType.valueOf(type.toUpperCase());
+
+
+        return this.analyticsService.getTimeDistribution(filter,timeDistributionType);
     }
+
+
+
 
 }

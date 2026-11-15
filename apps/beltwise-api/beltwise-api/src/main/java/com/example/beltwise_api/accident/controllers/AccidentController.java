@@ -2,7 +2,7 @@ package com.example.beltwise_api.accident.controllers;
 
 
 import com.example.beltwise_api.accident.dtos.AccidentDetailsResponseDTO;
-import com.example.beltwise_api.analytics.dtos.AnalyticFilterDTO;
+import com.example.beltwise_api.analytics.dtos.dashboard.AnalyticFilterDTO;
 import com.example.beltwise_api.accident.dtos.AccidentMapPointResponseDTO;
 import com.example.beltwise_api.accident.mappers.AccidentDetailsResponseMapper;
 import com.example.beltwise_api.accident.models.Accident;

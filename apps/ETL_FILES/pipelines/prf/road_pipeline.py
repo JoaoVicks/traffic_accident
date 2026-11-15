@@ -23,12 +23,12 @@ def run_road_pipeline(
 
     road_city_df = transform_road_city(df)
 
-    road_city_df["roadId"] = (
+    road_city_df["road_id"] = (
         road_city_df["road_code"]
         .map(road_map)
     )
 
-    road_city_df["cityId"] = road_city_df.apply(
+    road_city_df["city_id"] = road_city_df.apply(
         lambda row: city_map[
             (
                 row["city_name"],
@@ -40,8 +40,8 @@ def run_road_pipeline(
 
     road_city_df = road_city_df[
         [
-            "roadId",
-            "cityId",
+            "road_id",
+            "city_id",
         ]
     ]
 

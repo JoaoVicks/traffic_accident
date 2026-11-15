@@ -1,0 +1,43 @@
+/* ==========================================================================
+ * BELTWISE DESIGN SYSTEM — FOUNDATIONS: GLOBALS
+ * Source of Truth: Figma File Z8liAkOpRDdrA8qQfxAwXj (Page "01 — Foundations")
+ * ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--background-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-weight: var(--font-weight-regular);
+  font-size: var(--font-size-14);
+  line-height: var(--line-height-auto);
+  letter-spacing: var(--letter-spacing-0);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+

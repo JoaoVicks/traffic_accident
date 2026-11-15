@@ -1,5 +1,6 @@
 package com.example.beltwise_api.city.models;
 
+import com.example.beltwise_api.accident.models.Accident;
 import com.example.beltwise_api.road.models.Road;
 import com.example.beltwise_api.state.models.State;
 import jakarta.persistence.*;
@@ -37,5 +38,8 @@ public class City {
     @ManyToOne
     @JoinColumn(name = "state_id")
     private State state;
+
+    @OneToMany(mappedBy = "city")
+    private List<Accident> accidents;
 
 }

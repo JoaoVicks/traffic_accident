@@ -35,13 +35,13 @@ public class SearchService {
 
 
      List<StateSearchResultResponseDTO>  states =
-             this.stateRepository.searchByName(searchRequestDTO.inputSearch(), pageable);
+             this.stateRepository.searchByName(searchRequestDTO.query(), pageable);
 
      List<RoadSearchProjectionDTO>  roads =
-             this.roadRepository.getRoadByRoadCode(searchRequestDTO.inputSearch(), pageable);
+             this.roadRepository.searchRoads(searchRequestDTO.query(), pageable);
 
      List<CitySearchResultResponseDTO> cities =
-             this.cityRepository.searchByName(searchRequestDTO.inputSearch(),pageable);
+             this.cityRepository.searchByName(searchRequestDTO.query(),pageable);
 
 
      SearchResultResponseDTO searchResultResponseDTOS = new SearchResultResponseDTO(

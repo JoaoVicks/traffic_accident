@@ -1,7 +1,15 @@
 package com.example.beltwise_api.analytics.repositories;
 
 import com.example.beltwise_api.accident.models.Accident;
-import com.example.beltwise_api.analytics.dtos.*;
+import com.example.beltwise_api.analytics.dtos.dashboard.*;
+import com.example.beltwise_api.analytics.dtos.ranking.CityRankingResponseDTO;
+import com.example.beltwise_api.analytics.dtos.ranking.PageRequestDTO;
+import com.example.beltwise_api.analytics.dtos.ranking.RoadRankingResponseDTO;
+import com.example.beltwise_api.analytics.dtos.ranking.StateRankingResponseDTO;
+import com.example.beltwise_api.analytics.enums.OrderByType;
+import com.example.beltwise_api.city.models.City;
+import com.example.beltwise_api.road.models.Road;
+import com.example.beltwise_api.state.models.State;
 import com.example.beltwise_api.vehicle.models.Vehicle;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.*;
@@ -19,19 +27,20 @@ import java.util.List;
 public class AnalyticsRepository {
 
     private final EntityManager entityManager;
+    private final CriteriaBuilder criteriaBuilder;
 
     @Autowired
     public AnalyticsRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
+        this.criteriaBuilder = entityManager.getCriteriaBuilder();
     }
 
 
     public AccidentSummaryResponseDTO getSummary(Specification<Accident> specification) {
 
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
 
         // what the request must return
-        CriteriaQuery<AccidentSummaryResponseDTO> query = criteriaBuilder.createQuery(AccidentSummaryResponseDTO.class);
+        CriteriaQuery<AccidentSummaryResponseDTO> query = this.criteriaBuilder.createQuery(AccidentSummaryResponseDTO.class);
 
         // where the query comes from
         Root<Accident> root = query.from(Accident.class);
@@ -63,11 +72,9 @@ public class AnalyticsRepository {
 
     public List<SeverityDistributionResponseDTO> getSeverityDistributionAccident(Specification<Accident> specification) {
 
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
         // what the request must return
         CriteriaQuery<SeverityDistributionResponseDTO> query =
-                criteriaBuilder.createQuery(SeverityDistributionResponseDTO.class);
+                this.criteriaBuilder.createQuery(SeverityDistributionResponseDTO.class);
 
         // where the query comes from
         Root<Accident> root = query.from(Accident.class);
@@ -94,11 +101,9 @@ public class AnalyticsRepository {
 
     public List<SeverityDistributionResponseDTO> getSeverityDistributionVictim(Specification<Accident> specification) {
 
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
         // what the request must return
         CriteriaQuery<SeverityDistributionResponseDTO> query =
-                criteriaBuilder.createQuery(SeverityDistributionResponseDTO.class);
+                this.criteriaBuilder.createQuery(SeverityDistributionResponseDTO.class);
 
         // where the query comes from
         Root<Accident> root = query.from(Accident.class);
@@ -133,11 +138,9 @@ public class AnalyticsRepository {
 
     public List<VehiclesDistributionResponseDTO> getVehicleDistribution(Specification<Accident> specification) {
 
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
         // what the request must return
         CriteriaQuery<VehiclesDistributionResponseDTO> query =
-                criteriaBuilder.createQuery(VehiclesDistributionResponseDTO.class);
+                this.criteriaBuilder.createQuery(VehiclesDistributionResponseDTO.class);
 
         // where the query comes from
         Root<Accident> root = query.from(Accident.class);
@@ -165,12 +168,9 @@ public class AnalyticsRepository {
     }
 
     public List<WeatherDistributionResponseDTO> getWeatherDistribution(Specification<Accident> specification) {
-
-        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
-
         // what the request must return
         CriteriaQuery<WeatherDistributionResponseDTO> query =
-                criteriaBuilder.createQuery(WeatherDistributionResponseDTO.class);
+                this.criteriaBuilder.createQuery(WeatherDistributionResponseDTO.class);
 
         // where the query comes from
         Root<Accident> root = query.from(Accident.class);
@@ -252,6 +252,7 @@ public class AnalyticsRepository {
         Predicate predicate =  specification.toPredicate(root,query,criteriaBuilder);
 
         Expression<LocalTime> time = criteriaBuilder.truncate(root.get("time"), TemporalUnit.HOUR );
+
         query.where(predicate);
 
         Expression<Long> peoplePerAccident =
@@ -269,7 +270,6 @@ public class AnalyticsRepository {
                         TimeDistributionResponseDTO.class,
                         time,
                         victimsCount
-
                 )
         );
 
@@ -280,7 +280,382 @@ public class AnalyticsRepository {
         );
 
 
+
         return entityManager.createQuery(query).getResultList();
 
     }
+
+
+
+    public List<CityRankingResponseDTO> getCitiesRankingByDeathsCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
+
+        // what the request must return
+        CriteriaQuery<CityRankingResponseDTO> query =
+                this.criteriaBuilder.createQuery(CityRankingResponseDTO.class);
+
+        // where the query comes from
+        Root<City> root = query.from(City.class);
+
+        Join<City,Accident> accidentJoin = root.join("accidents", JoinType.LEFT);
+
+
+        Expression<Long> deathsCount =
+                criteriaBuilder.sum(accidentJoin.get("fatalities")).cast(Long.class);
+
+
+        query.select(
+               criteriaBuilder.construct(
+                CityRankingResponseDTO.class,
+                       root.get("id"),
+                       root.get("cityName"),
+                       deathsCount
+               )
+       );
+
+       query.groupBy(root.get("id"),root.get("cityName"));
+
+        query.orderBy(
+                orderByType == OrderByType.ASC
+                        ? criteriaBuilder.asc(deathsCount)
+                        : criteriaBuilder.desc(deathsCount),
+
+                criteriaBuilder.asc(root.get("cityName"))
+        );
+
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
+    }
+
+
+
+    public List<CityRankingResponseDTO> getCitiesRankingByVehiclesCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
+
+        // what the request must return
+        CriteriaQuery<CityRankingResponseDTO> query =
+                this.criteriaBuilder.createQuery(CityRankingResponseDTO.class);
+
+        // where the query comes from
+        Root<City> root = query.from(City.class);
+
+
+        Join<City,Accident> accidentJoin = root.join("accidents",JoinType.LEFT);
+
+        Expression<Long> vehicleCount = criteriaBuilder.sum(accidentJoin.get("vehicleCount")).cast(Long.class);
+
+
+        query.select(
+                criteriaBuilder.construct(
+                        CityRankingResponseDTO.class,
+                        root.get("id"),
+                        root.get("cityName"),
+                        vehicleCount
+                )
+        );
+
+
+
+        query.groupBy(root.get("id"), root.get("cityName"));
+
+        query.orderBy(
+                orderByType == OrderByType.ASC
+                        ? criteriaBuilder.asc(vehicleCount)
+                        : criteriaBuilder.desc(vehicleCount),
+
+                criteriaBuilder.asc(root.get("cityName"))
+        );
+
+
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
+
+
+    }
+
+    public List<CityRankingResponseDTO> getCitiesRankingByAccidentsCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
+
+
+        // what the request must return
+        CriteriaQuery<CityRankingResponseDTO> query =
+               this.criteriaBuilder.createQuery(CityRankingResponseDTO.class);
+
+        // where the query comes from
+        Root<City> root = query.from(City.class);
+
+        Join<City,Accident> accidentJoin = root.join("accidents",JoinType.LEFT);
+
+        Expression<Long> accidentCount = criteriaBuilder.count(accidentJoin).cast(Long.class);
+
+
+        query.select(
+                criteriaBuilder.construct(
+                        CityRankingResponseDTO.class,
+                        root.get("id"),
+                        root.get("cityName"),
+                        accidentCount
+                )
+        );
+
+
+
+        query.groupBy(root.get("id"), root.get("cityName"));
+
+        query.orderBy(
+                orderByType == OrderByType.ASC
+                        ? criteriaBuilder.asc(accidentCount)
+                        : criteriaBuilder.desc(accidentCount),
+
+                criteriaBuilder.asc(root.get("cityName"))
+        );
+
+
+
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
+
+    }
+
+
+    public List<RoadRankingResponseDTO> getRoadsRankingByDeathsCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
+
+        // what the request must return
+        CriteriaQuery<RoadRankingResponseDTO> query =
+                this.criteriaBuilder.createQuery(RoadRankingResponseDTO.class);
+
+        // where the query comes from
+        Root<Road> root = query.from(Road.class);
+
+        Join<Road,Accident> accidentJoin = root.join("accidents",JoinType.LEFT);
+
+        Expression<Long> deathsCount = criteriaBuilder.sum(accidentJoin.get("fatalities")).cast(Long.class);
+
+
+        query.select(
+                criteriaBuilder.construct(
+                        RoadRankingResponseDTO.class,
+                        root.get("id"),
+                        root.get("roadPrefix"),
+                        root.get("roadCode"),
+                        deathsCount
+                )
+        );
+
+
+
+        query.groupBy(root.get("id"),root.get("roadPrefix"),root.get("roadCode"));
+
+        query.orderBy(
+                orderByType == OrderByType.ASC
+                        ? criteriaBuilder.asc(deathsCount)
+                        : criteriaBuilder.desc(deathsCount),
+
+                criteriaBuilder.asc(root.get("roadCode"))
+        );
+
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
+
+    }
+
+
+    public List<RoadRankingResponseDTO> getRoadsRankingByAccidentsCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
+
+
+        // what the request must return
+        CriteriaQuery<RoadRankingResponseDTO> query =
+               this.criteriaBuilder.createQuery(RoadRankingResponseDTO.class);
+
+        // where the query comes from
+        Root<Road> root = query.from(Road.class);
+
+        Join<Road,Accident> accidentJoin = root.join("accidents",JoinType.LEFT);
+
+        Expression<Long> accidentCount = criteriaBuilder.count(accidentJoin).cast(Long.class);
+
+
+        query.select(
+                criteriaBuilder.construct(
+                        RoadRankingResponseDTO.class,
+                        root.get("id"),
+                        root.get("roadPrefix"),
+                        root.get("roadCode"),
+                        accidentCount
+                )
+        );
+
+
+
+        query.groupBy(root.get("id"),root.get("roadPrefix"),root.get("roadCode"));
+
+        query.orderBy(
+                orderByType == OrderByType.ASC
+                        ? criteriaBuilder.asc(accidentCount)
+                        : criteriaBuilder.desc(accidentCount),
+
+                criteriaBuilder.asc(root.get("roadCode"))
+        );
+
+
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
+    }
+
+
+
+
+    public List<RoadRankingResponseDTO> getRoadsRankingByVehiclesCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
+
+
+        // what the request must return
+        CriteriaQuery<RoadRankingResponseDTO> query =
+                this.criteriaBuilder.createQuery(RoadRankingResponseDTO.class);
+
+        // where the query comes from
+        Root<Road> root = query.from(Road.class);
+
+        Join<Road,Accident> accidentJoin = root.join("accidents",JoinType.LEFT);
+
+        Expression<Long> vehiclesCount = criteriaBuilder.sum(accidentJoin.get("vehicleCount")).cast(Long.class);
+
+
+        query.select(
+                criteriaBuilder.construct(
+                        RoadRankingResponseDTO.class,
+                        root.get("id"),
+                        root.get("roadPrefix"),
+                        root.get("roadCode"),
+                        vehiclesCount
+                )
+        );
+
+
+
+        query.groupBy(root.get("id"),root.get("roadPrefix"),root.get("roadCode"));
+
+        query.orderBy(
+                orderByType == OrderByType.ASC
+                        ? criteriaBuilder.asc(vehiclesCount)
+                        : criteriaBuilder.desc(vehiclesCount),
+
+                criteriaBuilder.asc(root.get("roadCode"))
+        );
+
+
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
+    }
+
+
+    public List<StateRankingResponseDTO> getStatesRankingByAccidentsCount(OrderByType orderByType, PageRequestDTO pageRequestDTO) {
+
+        // what the request must return
+        CriteriaQuery<StateRankingResponseDTO> query =
+                this.criteriaBuilder.createQuery(StateRankingResponseDTO.class);
+
+        // where the query comes from
+        Root<State> root = query.from(State.class);
+
+        Join<State, City> cityJoin = root.join("cities", JoinType.LEFT);
+
+        Join<City, Accident>  accidentJoin =  cityJoin.join("accidents",JoinType.LEFT);
+
+        Expression<Long> accidentCount = criteriaBuilder.count(accidentJoin);
+
+        query.select(
+                criteriaBuilder.construct(
+                        StateRankingResponseDTO.class,
+                        root.get("id"),
+                        root.get("stateCode"),
+                        accidentCount
+
+                )
+        );
+
+        query.groupBy(root.get("id"), root.get("stateCode"));
+
+        query.orderBy(
+                orderByType == OrderByType.ASC
+                        ? criteriaBuilder.asc(accidentCount)
+                        : criteriaBuilder.desc(accidentCount),
+
+                criteriaBuilder.asc(root.get("stateCode"))
+        );
+
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
+
+    }
+
+    public List<StateRankingResponseDTO> getStatesRankingByDeathsCount(OrderByType orderByType, PageRequestDTO pageRequestDTO) {
+
+        // what the request must return
+        CriteriaQuery<StateRankingResponseDTO> query =
+                this.criteriaBuilder.createQuery(StateRankingResponseDTO.class);
+
+        // where the query comes from
+        Root<State> root = query.from(State.class);
+
+        Join<State, City> cityJoin = root.join("cities", JoinType.LEFT);
+
+        Join<City, Accident>  accidentJoin =  cityJoin.join("accidents",JoinType.LEFT);
+
+        Expression<Long> deathsCount = criteriaBuilder.sum(accidentJoin.get("fatalities")).cast(Long.class);
+
+        query.select(
+                criteriaBuilder.construct(
+                        StateRankingResponseDTO.class,
+                        root.get("id"),
+                        root.get("stateCode"),
+                        deathsCount
+                )
+        );
+
+        query.groupBy(root.get("id"), root.get("stateCode"));
+
+        query.orderBy(
+                orderByType == OrderByType.ASC
+                        ? criteriaBuilder.asc(deathsCount)
+                        : criteriaBuilder.desc(deathsCount),
+
+                criteriaBuilder.asc(root.get("stateCode"))
+        );
+
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
+
+
+    }
+
+
+    public List<StateRankingResponseDTO> getStatesRankingByVehiclesCount(OrderByType orderByType,PageRequestDTO pageRequestDTO) {
+
+        // what the request must return
+        CriteriaQuery<StateRankingResponseDTO> query =
+                this.criteriaBuilder.createQuery(StateRankingResponseDTO.class);
+
+        // where the query comes from
+        Root<State> root = query.from(State.class);
+
+        Join<State, City> cityJoin = root.join("cities", JoinType.LEFT);
+
+        Join<City, Accident>  accidentJoin =  cityJoin.join("accidents",JoinType.LEFT);
+
+        Expression<Long> vehiclesCount = criteriaBuilder.sum(accidentJoin.get("vehicleCount")).cast(Long.class);
+
+        query.select(
+                criteriaBuilder.construct(
+                        StateRankingResponseDTO.class,
+                        root.get("id"),
+                        root.get("stateCode"),
+                        vehiclesCount
+                )
+        );
+
+        query.groupBy(root.get("id"), root.get("stateCode"));
+
+        query.orderBy(
+                orderByType == OrderByType.ASC
+                        ? criteriaBuilder.asc(vehiclesCount)
+                        : criteriaBuilder.desc(vehiclesCount),
+
+                criteriaBuilder.asc(root.get("stateCode"))
+        );
+
+        return entityManager.createQuery(query).setFirstResult(pageRequestDTO.page() * pageRequestDTO.size()).setMaxResults(pageRequestDTO.size()).getResultList();
+
+    }
+
+
+
 }

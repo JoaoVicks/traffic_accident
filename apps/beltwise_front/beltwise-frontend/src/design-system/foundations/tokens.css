@@ -1,0 +1,432 @@
+/* ==========================================================================
+ * BELTWISE DESIGN SYSTEM — FOUNDATIONS: TOKENS
+ * Source of Truth: Figma File Z8liAkOpRDdrA8qQfxAwXj (Page "01 — Foundations")
+ * ========================================================================== */
+
+:root {
+  /* ========================================================================
+   * B1 — PRIMITIVE COLORS · LOCAL VARIABLES (Variable collection / Mode 1)
+   * Classification: Existing Figma local variables (16 variables)
+   * Note: "black - 500", "black - 400", and "black - 300" contain spaces in
+   *       Figma and are normalized to valid CSS custom property identifiers.
+   * ======================================================================== */
+
+  /* Black scale */
+  --black-500: #141414; /* Figma: "black - 500" | VariableID:1:3177 | rgba(0.0784313753, 0.0784313753, 0.0784313753, 1) | Brand-board background */
+  --black-450: #1D1D1D; /* Figma: "black-450"   | VariableID:1:3182 | rgba(0.1121544465, 0.1121544465, 0.1121544465, 1) | Application canvas & repeated panel surfaces */
+  --black-430: #252525; /* Figma: "black-430"   | VariableID:1:3174 | rgba(0.1450980455, 0.1450980455, 0.1450980455, 1) | Inset surfaces & contextual separators */
+  --black-420: #2D2D2D; /* Figma: "black-420"   | VariableID:1:3175 | rgba(0.1764705926, 0.1764705926, 0.1764705926, 1) | Separators & nested surface details */
+  --black-400: #383838; /* Figma: "black - 400" | VariableID:1:3168 | rgba(0.2211538404, 0.2211538404, 0.2211538404, 1) | Search & control surfaces */
+  --black-380: #484848; /* Figma: "black-380"   | VariableID:1:3169 | rgba(0.2823529541, 0.2823529541, 0.2823529541, 1) | Contextual control treatments */
+  --black-300: #979797; /* Figma: "black - 300" | VariableID:1:3179 | rgba(0.5921568871, 0.5921568871, 0.5921568871, 1) | Muted metadata & inactive content */
+
+  /* White / Warm-cream scale */
+  --white-250: #FFFFF2; /* Figma: "white-250"   | VariableID:1:3178 | rgba(1, 0.9983971119, 0.9471153617, 1) | High-emphasis text & icons */
+  --white-500: #F6F5D5; /* Figma: "white-500"   | VariableID:1:3176 | rgba(0.9647058845, 0.9607843161, 0.8352941275, 1) | Warm-cream labels, icons & brand artwork */
+  --white-550: #FFFDCC; /* Figma: "white-550"   | VariableID:1:3181 | rgba(1, 0.9921568632, 0.8000000119, 1) | Analytics tab labels & contextual icon details */
+  --white-800: #FFFBA9; /* Figma: "white-800"   | VariableID:1:3172 | rgba(1, 0.9861696362, 0.6634615660, 1) | Map-control icons & gauge totals */
+
+  /* Primary warm / severity scale */
+  --primary-100: #FFC309; /* Figma: "primary-100" | VariableID:1:3180 | rgba(1, 0.7647058964, 0.0352941193, 1) | Severity segment & road-bar gradient endpoint */
+  --primary-200: #FF9300; /* Figma: "primary-200" | VariableID:1:3170 | rgba(1, 0.5764706135, 0, 1) | Selected navigation/controls & severity segment */
+  --primary-300: #F7830C; /* Figma: "primary-300" | VariableID:1:3173 | rgba(0.9686274529, 0.5137255192, 0.0470588244, 1) | KPI treatment, cause panel & contextual emphasis */
+  --primary-400: #FF4E01; /* Figma: "primary-400" | VariableID:1:3183 | rgba(1, 0.3058823645, 0.0039215689, 1) | Severity segment & bicycle category */
+  --primary-500: #FF312A; /* Figma: "primary-500" | VariableID:1:3171 | rgba(1, 0.1921568662, 0.1647058874, 1) | Severity gauge red segment & contextual filter treatment */
+
+  /* ========================================================================
+   * B2 — PRIMITIVE COLORS · OBSERVED LITERALS (52 observed records)
+   * Classification: Existing observed literal colors & alphas; inferred registry names
+   * ======================================================================== */
+  --observed-color-000000: #000000;
+  --observed-color-000000-alpha-0: rgba(0, 0, 0, 0);
+  --observed-color-000000-alpha-03: rgba(0, 0, 0, 0.03); /* Raw Figma: 0.029999999329447746 */
+  --observed-color-000000-alpha-22: rgba(0, 0, 0, 0.22); /* Raw Figma: 0.2199999988079071 */
+  --observed-color-000000-alpha-26: rgba(0, 0, 0, 0.26); /* Raw Figma: 0.25999999046325684 */
+  --observed-color-141414-alpha-0: rgba(20, 20, 20, 0);
+  --observed-color-383838: #383838; /* Unbound literal r:0.2196078449 vs variable black - 400 r:0.2211538404 */
+  --observed-color-4cc734: #4CC734; /* Motorcycle category solid */
+  --observed-color-4cc734-alpha-41: rgba(76, 199, 52, 0.41); /* Motorcycle category alpha fill (raw: 0.4099999964237213) */
+  --observed-color-4dc734: #4DC734; /* Function palette board green */
+  --observed-color-6155f5: #6155F5; /* Horse category solid */
+  --observed-color-6155f5-alpha-30: rgba(97, 85, 245, 0.3); /* Horse category alpha fill (raw: 0.30000001192092896) */
+  --observed-color-6c6c6c: #6C6C6C;
+  --observed-color-711de6: #711DE6; /* Function palette board purple */
+  --observed-color-878484: #878484;
+  --observed-color-8c4802-alpha-30: rgba(140, 72, 2, 0.3); /* Podium bar drop shadow color (raw: 0.30000001192092896) */
+  --observed-color-949494: #949494; /* Hourly chart axis labels */
+  --observed-color-989898: #989898; /* Stored navigation text & result counts */
+  --observed-color-999494: #999494; /* Stroke on Frame 427319037 */
+  --observed-color-999999: #999999; /* Ranking ordinals */
+  --observed-color-9f9f9f-stroke: #9F9F9F; /* r:0.6235294342 | Stroke & fill */
+  --observed-color-9f9f9f-fill: #9F9F9F;   /* r:0.625        | Fill */
+  --observed-color-aaaaaa: #AAAAAA; /* Ranking names */
+  --observed-color-aeaeae: #AEAEAE;
+  --observed-color-afafaf: #AFAFAF;
+  --observed-color-b1acac: #B1ACAC; /* Ranking values */
+  --observed-color-b7b7b7: #B7B7B7;
+  --observed-color-b7b7b7-alpha-20: rgba(183, 183, 183, 0.2); /* Raw Figma: 0.20000000298023224 */
+  --observed-color-bababa: #BABABA;
+  --observed-color-c2c2c2: #C2C2C2;
+  --observed-color-c5c5c5: #C5C5C5;
+  --observed-color-cccccc-alpha-35: rgba(204, 204, 204, 0.35); /* Raw Figma: 0.3499999940395355 */
+  --observed-color-cfc9c9: #CFC9C9;
+  --observed-color-d0761a-alpha-0: rgba(208, 118, 26, 0); /* Gradient transparent endpoint */
+  --observed-color-d6d6cb: #D6D6CB;
+  --observed-color-d9d9d9: #D9D9D9;
+  --observed-color-dedede: #DEDEDE;
+  --observed-color-f2f2f2: #F2F2F2;
+  --observed-color-fa0800: #FA0800; /* Palette board primary red */
+  --observed-color-ff2e32: #FF2E32; /* Car category solid & function board swatch */
+  --observed-color-ff2e32-alpha-38: rgba(255, 46, 50, 0.38); /* Car category alpha fill (raw: 0.3799999952316284) */
+  --observed-color-ff3636: #FF3636; /* Fatal incident badge & map incident indicator */
+  --observed-color-ff4e01-alpha-47: rgba(255, 78, 1, 0.47); /* Bicycle category alpha fill (raw: 0.4699999988079071) */
+  --observed-color-ff8000: #FF8000; /* Selected analytics tab background */
+  --observed-color-ff8100: #FF8100;
+  --observed-color-ff9b33: #FF9B33;
+  --observed-color-ffcc00: #FFCC00; /* Truck category solid & function board yellow */
+  --observed-color-ffcc00-alpha-49: rgba(255, 204, 0, 0.49); /* Truck category alpha fill (raw: 0.49000000953674316) */
+  --observed-color-fffc8f: #FFFC8F; /* Map zoom control background */
+  --observed-color-fffdcc: #FFFDCC; /* Unbound literal r:1, g:0.9916666746, b:0.7980769277 */
+  --observed-color-ffffff: #FFFFFF;
+  --observed-color-ffffff-alpha-0: rgba(255, 255, 255, 0);
+
+  /* ========================================================================
+   * B3 — SEMANTIC ALIASES · PROPOSED (16 aliases documented in 18:18)
+   * Classification: Proposed semantic & contextual aliases
+   * ======================================================================== */
+
+  /* Backgrounds & Surfaces */
+  --background-canvas: var(--black-450);          /* Figma: background.canvas -> black-450 (#1D1D1D) */
+  --surface-panel: var(--black-450);              /* Figma: surface.panel -> black-450 (#1D1D1D) */
+  --surface-inset: var(--black-430);              /* Figma: surface.inset -> black-430 (#252525) */
+  --surface-control: var(--black-400);            /* Figma: surface.control -> black - 400 (#383838) */
+  --surface-control-emphasis: var(--black-380);   /* Figma: surface.control.emphasis -> black-380 (#484848) */
+
+  /* Borders */
+  --border-subtle: var(--black-420);              /* Figma: border.subtle -> black-420 (#2D2D2D) */
+
+  /* Text */
+  --text-primary: var(--white-250);               /* Figma: text.primary -> white-250 (#FFFFF2) */
+  --text-secondary: var(--white-500);             /* Figma: text.secondary -> white-500 (#F6F5D5) */
+  --text-muted: var(--black-300);                 /* Figma: text.muted -> black - 300 (#979797) */
+  --text-accent: var(--primary-200);              /* Figma: text.accent -> primary-200 (#FF9300) */
+
+  /* Icons */
+  --icon-primary: var(--white-500);               /* Figma: icon.primary -> white-500 (#F6F5D5) */
+  --icon-muted: var(--black-300);                 /* Figma: icon.muted -> black - 300 (#979797) */
+
+  /* Interactive & Contextual States */
+  --action-selected-background: var(--primary-200);                   /* Figma: action.selected.background -> primary-200 (#FF9300) */
+  --analytics-tab-selected-background: var(--observed-color-ff8000);  /* Figma: analyticsTab.selected.background -> #FF8000 */
+  --incident-fatal-background: var(--observed-color-ff3636);          /* Figma: incident.fatal.background -> #FF3636 */
+  --chart-total: var(--white-800);                                    /* Figma: chart.total -> white-800 (#FFFBA9) */
+
+  /* ========================================================================
+   * B4 — CONTEXTUAL COLORS, CATEGORICAL MAPPINGS & GRADIENTS (18:23)
+   * Classification: Existing values; proposed contextual registry names
+   * ======================================================================== */
+
+  /* Vehicle Categories */
+  --category-vehicle-car: var(--observed-color-ff2e32);
+  --category-vehicle-car-alpha: var(--observed-color-ff2e32-alpha-38);
+  --category-vehicle-motorcycle: var(--observed-color-4cc734);
+  --category-vehicle-motorcycle-alpha: var(--observed-color-4cc734-alpha-41);
+  --category-vehicle-truck: var(--observed-color-ffcc00);
+  --category-vehicle-truck-alpha: var(--observed-color-ffcc00-alpha-49);
+  --category-vehicle-bicycle: var(--primary-400);
+  --category-vehicle-bicycle-alpha: var(--observed-color-ff4e01-alpha-47);
+  --category-vehicle-horse: var(--observed-color-6155f5);
+  --category-vehicle-horse-alpha: var(--observed-color-6155f5-alpha-30);
+
+  /* Chart Severity Sequence (#FF312A / #FF4E01 / #FF9300 / #FFC309) */
+  --chart-severity-red: var(--primary-500);
+  --chart-severity-sequence-1: var(--primary-500); /* #FF312A */
+  --chart-severity-sequence-2: var(--primary-400); /* #FF4E01 */
+  --chart-severity-sequence-3: var(--primary-200); /* #FF9300 */
+  --chart-severity-sequence-4: var(--primary-100); /* #FFC309 */
+
+  /* Palette Board Contextual Swatches (kept separate from application roles) */
+  --palette-primary-red: var(--observed-color-fa0800);
+  --palette-function-purple: var(--observed-color-711de6);
+  --palette-function-green: var(--observed-color-4dc734);
+  --palette-primary-duplicate-yellow: var(--primary-100);
+
+  /* Unbound Gray Text Exceptions (explicitly not merged into --black-300 #979797) */
+  --text-gray-axis: var(--observed-color-949494);            /* #949494 hourly chart axes */
+  --text-gray-navigation: var(--observed-color-989898);      /* #989898 navigation & result counts */
+  --text-gray-ranking-ordinal: var(--observed-color-999999); /* #999999 ranking ordinals */
+  --text-gray-ranking-name: var(--observed-color-aaaaaa);    /* #AAAAAA ranking names */
+  --text-gray-ranking-value: var(--observed-color-b1acac);   /* #B1ACAC ranking values */
+
+  /* Contextual Map Control */
+  --surface-map-zoom-control: var(--observed-color-fffc8f);  /* #FFFC8F map zoom control background */
+
+  /* Contextual Linear Gradients (7 recipes, normalized to 2 decimal places) */
+  --gradient-contextual-1: linear-gradient(180deg, var(--primary-300) 0%, var(--observed-color-d0761a-alpha-0) 173.44%); /* KPI text 80.428 (1:70) */
+  --gradient-contextual-2: linear-gradient(180deg, var(--primary-300) 0%, var(--observed-color-d0761a-alpha-0) 178.13%); /* KPI text 40.846 (1:79) */
+  --gradient-contextual-3: linear-gradient(90deg, var(--primary-100) 0%, var(--primary-200) 100%);                       /* Road bar Rectangle 4157 (1:277) */
+  --gradient-contextual-4: linear-gradient(172.37deg, rgba(0, 0, 0, 0.5) 1.11%, rgba(0, 0, 0, 0) 92.11%);                /* Map dimming overlay Rectangle 4145 (1:329) | Raw: 172.372516deg, 1.1085%, 92.112% */
+  --gradient-contextual-5: linear-gradient(180deg, var(--primary-300) 0%, var(--observed-color-d0761a-alpha-0) 157.81%); /* Chart Vector stroke (1:1741) */
+  --gradient-contextual-6: linear-gradient(180.16deg, var(--primary-300) 17.72%, var(--observed-color-d0761a-alpha-0) 173.71%); /* Chart Vector stroke (1:1775) | Raw: 180.157402deg, 17.724% */
+  --gradient-contextual-7: linear-gradient(180deg, var(--primary-300) 64.93%, var(--observed-color-d0761a-alpha-0) 136.41%); /* Ranking podium Rectangle 4146 (1:2215) | Raw: 64.927% */
+
+  /* ========================================================================
+   * D1c — COMPONENT AND LAYOUT DIMENSIONS (18:3417)
+   * Normalization: Nearest 0.5px (intentional 32.5px & 196.5px preserved)
+   * Note: Responsive breakpoints are explicitly unresolved in Figma (all screens 1440px wide)
+   * ======================================================================== */
+  --layout-canvas-desktop-width: 1440px;
+
+  --size-panel-analytics-summary-width: 437px;
+  --size-panel-analytics-summary-height: 159px;
+
+  --size-panel-analytics-chart-width: 437px;
+  --size-panel-analytics-chart-height: 278px;
+
+  --size-panel-accident-detail-width: 431px;
+  --size-panel-accident-detail-height: 843px;
+
+  --size-panel-ranking-width: 346px;
+  --size-panel-ranking-height: 658px;
+
+  --size-navigation-compact-width: 59px;
+  --size-navigation-compact-height: 205.5px; /* Raw Figma: 205.62535095214844px */
+
+  --size-navigation-expanded-width: 259px;
+  --size-navigation-expanded-height: 207px;
+
+  --size-incident-card-width: 280px;
+  --size-incident-card-height: 238px;
+
+  --size-map-controls-group-width: 56px; /* Raw Figma: 56.10389709472656px */
+  --size-map-controls-group-height: 144px;
+
+  --size-map-zoom-control: 29px; /* Raw Figma: 28.98701286315918px */
+
+  --size-search-action-row-width: 421px;
+  --size-search-action-row-height: 33px;
+
+  --size-search-field-width: 376px;
+  --size-search-field-height: 32.5px; /* Intentional half-pixel specification */
+
+  --size-search-filter-action: 33px;
+
+  --size-analytics-metric-tab-width: 97px;
+  --size-analytics-metric-tab-height: 28px;
+
+  --size-analytics-kpi-tile-width: 196.5px; /* Intentional half-pixel specification */
+  --size-analytics-kpi-tile-height: 80px;
+
+  /* ========================================================================
+   * D2a — CORNER RADII (18:38 — 21 observed border radius values)
+   * Normalization: Nearest 0.5px; distinct tokens preserved
+   * ======================================================================== */
+
+  /* Integer corner radii */
+  --radius-0: 0px;
+  --radius-3: 3px;
+  --radius-4: 4px;     /* Analytics metric tabs */
+  --radius-6: 6px;     /* Search field, filter button, KPI tiles */
+  --radius-8: 8px;     /* Dropdowns, cards, inputs */
+  --radius-9: 9px;
+  --radius-10: 10px;   /* Analytics summary/chart panels, map controls group */
+  --radius-12: 12px;   /* Navigation rail, ranking panel, filter modal */
+  --radius-16: 16px;
+  --radius-17: 17px;
+  --radius-18: 18px;
+  --radius-19: 19px;
+  --radius-20: 20px;
+  --radius-6000: 6000px; /* Pill / circular badges */
+
+  /* Fractional observed corner radii (normalized to nearest 0.5px) */
+  --radius-2-112: 2px;     /* Raw Figma: 2.111999988555908px */
+  --radius-4-260: 4.5px;   /* Raw Figma: 4.25990104675293px */
+  --radius-5-972: 6px;     /* Raw Figma: 5.971733570098877px */
+  --radius-7-481: 7.5px;   /* Raw Figma: 7.4805192947387695px */
+  --radius-8-356: 8.5px;   /* Raw Figma: 8.355794906616211px */
+  --radius-11-221: 11px;   /* Raw Figma: 11.220779418945312px */
+  --radius-188-060: 188px; /* Raw Figma: 188.0596923828125px */
+
+  /* ========================================================================
+   * D2b — BORDER AND NON-ICON STROKES (18:3422 — 36 stroke weights)
+   * Normalization: Intentional strokes preserved; float noise trimmed to <=2 decimals
+   * ======================================================================== */
+
+  /* Primary integer & half-pixel stroke weights */
+  --stroke-non-icon-1: 1px;     /* 53 observations */
+  --stroke-non-icon-1-5: 1.5px; /* 78 observations (panel dividers Line 1, Line 4, Line 14) */
+  --stroke-non-icon-5: 5px;     /* 10 observations */
+  --stroke-non-icon-8: 8px;     /* 3 observations */
+
+  /* Fractional observed non-icon stroke weights (normalized to <=2 decimal places) */
+  --stroke-non-icon-0-445: 0.44px;   /* Raw Figma: 0.44492948055267334px */
+  --stroke-non-icon-0-530: 0.53px;   /* Raw Figma: 0.5299546122550964px */
+  --stroke-non-icon-0-657: 0.66px;   /* Raw Figma: 0.6565136909484863px */
+  --stroke-non-icon-0-660: 0.66px;   /* Raw Figma: 0.6601941585540771px */
+  --stroke-non-icon-0-701: 0.7px;    /* Raw Figma: 0.701298713684082px */
+  --stroke-non-icon-0-885: 0.88px;   /* Raw Figma: 0.8848701119422913px */
+  --stroke-non-icon-0-896: 0.9px;    /* Raw Figma: 0.8957601189613342px */
+  --stroke-non-icon-0-935: 0.94px;   /* Raw Figma: 0.935064971446991px */
+  --stroke-non-icon-0-965: 0.96px;   /* Raw Figma: 0.9646387100219727px */
+  --stroke-non-icon-0-984: 0.98px;   /* Raw Figma: 0.983862042427063px */
+  --stroke-non-icon-1-007: 1.01px;   /* Raw Figma: 1.007462739944458px */
+  --stroke-non-icon-1-065: 1.06px;   /* Raw Figma: 1.0649675130844116px */
+  --stroke-non-icon-1-200: 1.2px;    /* Raw Figma: 1.2000014781951904px */
+  --stroke-non-icon-1-344: 1.34px;   /* Raw Figma: 1.3436400890350342px */
+  --stroke-non-icon-1-403: 1.4px;    /* Raw Figma: 1.402597427368164px */
+  --stroke-non-icon-1-447: 1.45px;   /* Raw Figma: 1.446958065032959px */
+  --stroke-non-icon-1-687: 1.69px;   /* Raw Figma: 1.6871790885925293px */
+  --stroke-non-icon-2-239: 2.24px;   /* Raw Figma: 2.2394001483917236px */
+  --stroke-non-icon-2-894: 2.89px;   /* Raw Figma: 2.893916130065918px */
+  --stroke-non-icon-4-341: 4.34px;   /* Raw Figma: 4.340874195098877px */
+  --stroke-non-icon-4-479: 4.48px;   /* Raw Figma: 4.478800296783447px */
+  --stroke-non-icon-5-788: 5.79px;   /* Raw Figma: 5.787832260131836px */
+  --stroke-non-icon-6-435: 6.44px;   /* Raw Figma: 6.435235977172852px */
+  --stroke-non-icon-6-718: 6.72px;   /* Raw Figma: 6.718200206756592px */
+  --stroke-non-icon-7-100: 7.1px;    /* Raw Figma: 7.099783420562744px */
+  --stroke-non-icon-7-663: 7.66px;   /* Raw Figma: 7.6634135246276855px */
+  --stroke-non-icon-7-717: 7.72px;   /* Raw Figma: 7.717109680175781px */
+  --stroke-non-icon-9-491: 9.49px;   /* Raw Figma: 9.490599632263184px */
+  --stroke-non-icon-9-550: 9.55px;   /* Raw Figma: 9.550339698791504px */
+  --stroke-non-icon-9-839: 9.84px;   /* Raw Figma: 9.83862018585205px */
+  --stroke-non-icon-10-075: 10.07px; /* Raw Figma: 10.074626922607422px */
+  --stroke-non-icon-11-667: 11.67px; /* Raw Figma: 11.666887283325195px */
+
+  /* ========================================================================
+   * D2c — ICON STROKE MEASUREMENTS (18:3427 — 14 icon stroke weights)
+   * Normalization: Intentional strokes (0.625px, 0.75px, 1px, 1.5px) preserved;
+   *                float noise trimmed to <=2 decimal places
+   * ======================================================================== */
+  --stroke-icon-0-625: 0.625px;       /* Intentional 5/8 px icon stroke */
+  --stroke-icon-0-625-float: 0.625px; /* Raw Figma: 0.6250000596046448px */
+  --stroke-icon-0-75: 0.75px;         /* Intentional 3/4 px icon stroke */
+  --stroke-icon-1-float: 1px;         /* Raw Figma: 0.9999999403953552px */
+  --stroke-icon-1: 1px;
+  --stroke-icon-1-090: 1.09px;        /* Raw Figma: 1.0897386074066162px */
+  --stroke-icon-1-091: 1.09px;        /* Raw Figma: 1.0909090042114258px */
+  --stroke-icon-1-144: 1.14px;        /* Raw Figma: 1.1437478065490723px */
+  --stroke-icon-1-180: 1.18px;        /* Raw Figma: 1.1796116828918457px */
+  --stroke-icon-1-200: 1.2px;         /* Raw Figma: 1.2000014781951904px */
+  --stroke-icon-1-214: 1.21px;        /* Raw Figma: 1.2138155698776245px */
+  --stroke-icon-1-403: 1.4px;         /* Raw Figma: 1.402597427368164px */
+  --stroke-icon-1-412: 1.41px;        /* Raw Figma: 1.4117647409439087px */
+  --stroke-icon-1-5: 1.5px;
+
+  /* ========================================================================
+   * D3 — EFFECTS AND ELEVATION (18:43 — 5 existing effect recipes)
+   * Normalization: Shadow alpha values normalized to <=2 decimal places
+   * ======================================================================== */
+
+  /* 1. shadow-tools (effect.contextual.1) — Style S:9f85eec0d686f8cda42add7aee0813d031731630,256:18 */
+  --shadow-tools: 2px 4px 18px 0px rgba(0, 0, 0, 0.26); /* Raw alpha: 0.25999999046325684 */
+  --effect-contextual-1: var(--shadow-tools);
+
+  /* 2. effect.contextual.2 — Navigation rail (1:287, 1:733, 1:1237) */
+  --effect-contextual-2: 2px 4px 18px 0px rgba(0, 0, 0, 0.26), inset 0px -7px 10px 3px rgba(0, 0, 0, 0.22); /* Raw alphas: 0.25999999046325684, 0.2199999988079071 */
+
+  /* 3. effect.contextual.3 — Vector element (1:1863, 1:2055, 1:2817) */
+  --effect-contextual-3: 0px 4px 20px 0px rgba(204, 204, 204, 0.35); /* Raw alpha: 0.3499999940395355 */
+
+  /* 4. effect.contextual.4 — Ranking podium bar Rectangle 4146 (1:2215, 1:2374, 1:2534) */
+  --effect-contextual-4: 0px 20px 50px 4px rgba(140, 72, 2, 0.3); /* Raw alpha: 0.30000001192092896 */
+
+  /* 5. effect.contextual.5 — Dropdown container Frame 427319011 (1:2605) */
+  --effect-contextual-5: 0px 4px 5px 3px rgba(0, 0, 0, 0.03); /* Raw alpha: 0.029999999329447746 */
+}
+
+/* ==========================================================================
+ * TAILWIND CSS v4 THEME MAPPINGS (@theme inline)
+ * Exposes primitive, semantic, and contextual tokens as Tailwind utilities
+ * ========================================================================== */
+@theme inline {
+  /* Primitive Colors (B1) */
+  --color-black-500: var(--black-500);
+  --color-black-450: var(--black-450);
+  --color-black-430: var(--black-430);
+  --color-black-420: var(--black-420);
+  --color-black-400: var(--black-400);
+  --color-black-380: var(--black-380);
+  --color-black-300: var(--black-300);
+
+  --color-white-250: var(--white-250);
+  --color-white-500: var(--white-500);
+  --color-white-550: var(--white-550);
+  --color-white-800: var(--white-800);
+
+  --color-primary-100: var(--primary-100);
+  --color-primary-200: var(--primary-200);
+  --color-primary-300: var(--primary-300);
+  --color-primary-400: var(--primary-400);
+  --color-primary-500: var(--primary-500);
+
+  /* Semantic Color Aliases (B3) */
+  --color-background-canvas: var(--background-canvas);
+  --color-surface-panel: var(--surface-panel);
+  --color-surface-inset: var(--surface-inset);
+  --color-surface-control: var(--surface-control);
+  --color-surface-control-emphasis: var(--surface-control-emphasis);
+  --color-border-subtle: var(--border-subtle);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-accent: var(--text-accent);
+
+  --color-icon-primary: var(--icon-primary);
+  --color-icon-muted: var(--icon-muted);
+
+  --color-action-selected: var(--action-selected-background);
+  --color-analytics-tab-selected: var(--analytics-tab-selected-background);
+  --color-incident-fatal: var(--incident-fatal-background);
+  --color-chart-total: var(--chart-total);
+
+  /* Contextual & Categorical Colors (B4) */
+  --color-category-car: var(--category-vehicle-car);
+  --color-category-car-alpha: var(--category-vehicle-car-alpha);
+  --color-category-motorcycle: var(--category-vehicle-motorcycle);
+  --color-category-motorcycle-alpha: var(--category-vehicle-motorcycle-alpha);
+  --color-category-truck: var(--category-vehicle-truck);
+  --color-category-truck-alpha: var(--category-vehicle-truck-alpha);
+  --color-category-bicycle: var(--category-vehicle-bicycle);
+  --color-category-bicycle-alpha: var(--category-vehicle-bicycle-alpha);
+  --color-category-horse: var(--category-vehicle-horse);
+  --color-category-horse-alpha: var(--category-vehicle-horse-alpha);
+
+  --color-chart-severity-red: var(--chart-severity-red);
+  --color-chart-severity-1: var(--chart-severity-sequence-1);
+  --color-chart-severity-2: var(--chart-severity-sequence-2);
+  --color-chart-severity-3: var(--chart-severity-sequence-3);
+  --color-chart-severity-4: var(--chart-severity-sequence-4);
+
+  --color-gray-axis: var(--text-gray-axis);
+  --color-gray-navigation: var(--text-gray-navigation);
+  --color-gray-ranking-ordinal: var(--text-gray-ranking-ordinal);
+  --color-gray-ranking-name: var(--text-gray-ranking-name);
+  --color-gray-ranking-value: var(--text-gray-ranking-value);
+  --color-map-zoom-control: var(--surface-map-zoom-control);
+
+  /* Corner Radii (D2a) */
+  --radius-0: var(--radius-0);
+  --radius-3: var(--radius-3);
+  --radius-4: var(--radius-4);
+  --radius-6: var(--radius-6);
+  --radius-8: var(--radius-8);
+  --radius-9: var(--radius-9);
+  --radius-10: var(--radius-10);
+  --radius-12: var(--radius-12);
+  --radius-16: var(--radius-16);
+  --radius-17: var(--radius-17);
+  --radius-18: var(--radius-18);
+  --radius-19: var(--radius-19);
+  --radius-20: var(--radius-20);
+  --radius-pill: var(--radius-6000);
+
+  /* Shadows & Elevation (D3) */
+  --shadow-tools: var(--shadow-tools);
+  --shadow-contextual-1: var(--effect-contextual-1);
+  --shadow-contextual-2: var(--effect-contextual-2);
+  --shadow-contextual-3: var(--effect-contextual-3);
+  --shadow-contextual-4: var(--effect-contextual-4);
+  --shadow-contextual-5: var(--effect-contextual-5);
+}
+
