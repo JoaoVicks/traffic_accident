@@ -1,9 +1,10 @@
 import { NavLink, Outlet } from 'react-router';
 
 const NAV_ITEMS = [
-  { to: '/', label: 'Design System', end: true },
-  { to: '/analytics/preview', label: 'Charts Preview', end: true },
-  { to: '/analytics', label: 'Analytics (Live API)', end: true },
+  { to: '/dev', label: 'Design System', end: true },
+  { to: '/dev/analytics/preview', label: 'Charts Preview', end: true },
+  { to: '/dev/analytics', label: 'Analytics (Live API)', end: true },
+  { to: '/', label: 'Workspace App', end: true },
 ] as const;
 
 /**

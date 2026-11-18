@@ -104,3 +104,36 @@ export interface HourlyChartDatum {
   count: number;
 }
 
+/** Input DTO item for `RoadConfigurationChart` (`Analytics/Card/RoadConfiguration` `23:856`). */
+export interface RoadConfigurationDTO {
+  roadConfiguration: string;
+  count: number;
+}
+
+/** Normalized road configuration category key (`Charts/RoadConfigurationDistribution` `23:226`). */
+export type RoadConfigurationCategoryKey = 'unica' | 'dupla' | 'multipla';
+
+/** Normalized road configuration datum rendered by `RoadConfigurationChart`. */
+export interface RoadConfigurationChartDatum {
+  key: RoadConfigurationCategoryKey;
+  label: string;
+  rawConfiguration: string;
+  count: number;
+  percentage: number;
+}
+
+/** Active geographic context variant for the analytics workspace (`Search` S1, `State` S4, `Road` S5). */
+export type AnalyticsContextMode = 'search' | 'state' | 'road';
+
+/** Structured summary payload for `AnalyticsContextSummary` (`23:347`, `23:397`, `23:451`). */
+export interface AnalyticsContextSummaryData {
+  context: AnalyticsContextMode;
+  parentContext?: string;
+  secondaryContext?: string;
+  contextTitle: string;
+  contextIndicatorValue: string | number;
+  totalVictims: number;
+  totalAccidents: number;
+}
+
+

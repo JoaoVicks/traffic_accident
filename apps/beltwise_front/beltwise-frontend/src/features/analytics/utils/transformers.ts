@@ -2,6 +2,9 @@ import type {
   AnalyticsMetricType,
   AnalyticsTabValue,
   HourlyChartDatum,
+  RoadConfigurationCategoryKey,
+  RoadConfigurationChartDatum,
+  RoadConfigurationDTO,
   SeverityCategoryKey,
   SeverityChartDatum,
   SeverityDistributionDTO,
@@ -325,4 +328,83 @@ export function transformTimeDistribution(rows: readonly TimeDistributionDTO[]):
 
   return { series, totalCount };
 }
+
+const ROAD_CONFIGURATION_ORDER: readonly {
+  key: RoadConfigurationCategoryKey;
+  label: string;
+  rawConfiguration: string;
+  aliases: readonly string[];
+}[] = [
+  {
+    key: 'unica',
+    label: 'única',
+    rawConfiguration: 'Simples',
+    aliases: ['unica', 'pista simples', 'simples', 'via unica'],
+  },
+  {
+    key: 'dupla',
+    label: 'dupla',
+    rawConfiguration: 'Dupla',
+    aliases: ['dupla', 'pista dupla', 'via dupla'],
+  },
+  {
+    key: 'multipla',
+    label: 'multipla',
+    rawConfiguration: 'Múltipla',
+    aliases: ['multipla', 'multifaixas', 'pista multipla', 'via multipla'],
+  },
+];
+
+/**
+ * Normalizes road configuration rows into the 3 Beltwise road configuration categories
+ * (`única`, `dupla`, `multipla` — Figma `Charts/RoadConfigurationDistribution` `23:226`).
+ */
+export function transformRoadConfigurationDistribution(
+  rows: readonly RoadConfigurationDTO[],
+): {
+  series: RoadConfigurationChartDatum[];
+  totalCount: number;
+  unmappedCount: number;
+} {
+  const countsByKey = new Map<RoadConfigurationCategoryKey, number>();
+  let unmappedCount = 0;
+
+  for (const row of rows) {
+    const normalized = normalizeLookupKey(row.roadConfiguration);
+    const matched = ROAD_CONFIGURATION_ORDER.find((item) =>
+      item.aliases.includes(normalized),
+    );
+
+    if (matched) {
+      countsByKey.set(
+        matched.key,
+        (countsByKey.get(matched.key) ?? 0) + row.count,
+      );
+    } else {
+      unmappedCount += row.count;
+    }
+  }
+
+  const mappedTotal = Array.from(countsByKey.values()).reduce(
+    (sum, count) => sum + count,
+    0,
+  );
+  const totalCount = mappedTotal + unmappedCount;
+
+  const series: RoadConfigurationChartDatum[] = ROAD_CONFIGURATION_ORDER.map(
+    (item) => {
+      const count = countsByKey.get(item.key) ?? 0;
+      return {
+        key: item.key,
+        label: item.label,
+        rawConfiguration: item.rawConfiguration,
+        count,
+        percentage: mappedTotal > 0 ? (count / mappedTotal) * 100 : 0,
+      };
+    },
+  );
+
+  return { series, totalCount, unmappedCount };
+}
+
 
