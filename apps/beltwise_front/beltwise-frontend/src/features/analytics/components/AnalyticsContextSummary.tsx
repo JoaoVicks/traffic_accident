@@ -1,10 +1,10 @@
-import { cn } from 'cn';
+import { cn } from "cn";
 import {
   ChevronRightIcon,
   RankingPodiumIcon,
-} from '@/design-system/primitives';
-import type { AnalyticsContextMode } from '../types/analytics';
-import { AnalyticsKpiTile } from './AnalyticsKpiTile';
+} from "@/design-system/primitives";
+import type { AnalyticsContextMode } from "../types/analytics";
+import { AnalyticsKpiTile } from "./AnalyticsKpiTile";
 
 export interface AnalyticsContextSummaryProps {
   /**
@@ -42,7 +42,7 @@ export interface AnalyticsContextSummaryProps {
  * `16.07px` `white-800` indicator with `RankingPodiumIcon`, and paired `196.5 × 80 px` KPI tiles.
  */
 export function AnalyticsContextSummary({
-  context = 'search',
+  context = "search",
   contextTitle,
   parentContext,
   secondaryContext,
@@ -54,17 +54,8 @@ export function AnalyticsContextSummary({
   className,
 }: AnalyticsContextSummaryProps) {
   const showBreadcrumb =
-    context !== 'state' && Boolean(parentContext || secondaryContext);
+    context !== "state" && Boolean(parentContext || secondaryContext);
 
-  const heightClass =
-    context === 'state'
-      ? 'h-[151px]'
-      : context === 'road'
-        ? 'h-[165px]'
-        : 'h-(--size-panel-analytics-summary-height)';
-
-  const titleHeightClass =
-    context === 'search' ? 'h-[9px]' : 'h-[15px]';
 
   return (
     <section
@@ -72,32 +63,31 @@ export function AnalyticsContextSummary({
       data-slot="analytics-context-summary"
       data-context={context}
       className={cn(
-        'flex w-(--size-panel-analytics-summary-width) shrink-0 flex-col items-center justify-center rounded-(--radius-12) bg-(--black-450) px-[16px] pt-[16px] pb-[20px] shadow-(--shadow-tools)',
-        heightClass,
+        "flex w-full  flex-col items-center justify-center rounded-(--radius-12) bg-(--black-450) px-[16px]  py-[20px] shadow-(--shadow-tools)",
         className,
       )}
     >
-      <div className="flex w-full shrink-0 flex-col items-start gap-[18px]">
+      <div className="flex w-full h-fit shrink-0 flex-col items-start gap-[18px]">
         {/* Geographic context header (23:319 / 23:373 / 23:423) */}
         <div
           className={cn(
-            'flex w-full shrink-0 items-end justify-between',
-            context === 'state' && 'h-[17px]',
+            "flex w-full shrink-0 items-end justify-between",
+            context === "state" && "h-[17px]",
           )}
         >
           <div
             className={cn(
-              'flex w-[205px] shrink-0 flex-col items-start',
-              showBreadcrumb && 'gap-[8px]',
+              "flex w-[205px] shrink-0 flex-col items-start",
+              showBreadcrumb && "gap-[2px]",
             )}
           >
             {showBreadcrumb ? (
               <div
                 data-slot="analytics-context-breadcrumb"
-                className="flex h-[8px] shrink-0 items-center gap-[6px]"
+                className="flex h-fit shrink-0 items-center gap-[6px]"
               >
                 {parentContext ? (
-                  <span className="type-context-italic-12-light leading-none whitespace-nowrap text-(--observed-color-aeaeae)">
+                  <span className=" leading-none whitespace-nowrap text-(--observed-color-aeaeae)">
                     {parentContext}
                   </span>
                 ) : null}
@@ -114,7 +104,7 @@ export function AnalyticsContextSummary({
                 ) : null}
 
                 {secondaryContext ? (
-                  <span className="type-context-italic-12-light leading-none whitespace-nowrap text-(--observed-color-aeaeae)">
+                  <span className="leading-none whitespace-nowrap text-(--observed-color-aeaeae)">
                     {secondaryContext}
                   </span>
                 ) : null}
@@ -122,10 +112,7 @@ export function AnalyticsContextSummary({
             ) : null}
 
             <h2
-              className={cn(
-                'type-heading-context flex items-center leading-none whitespace-nowrap text-(--white-250)',
-                titleHeightClass,
-              )}
+              className= "text-[24px] flex items-center  whitespace-nowrap text-(--white-250)"
             >
               {contextTitle}
             </h2>
@@ -134,16 +121,16 @@ export function AnalyticsContextSummary({
           {/* Right context indicator (23:326 / 23:376 / 23:430) */}
           <div
             data-slot="analytics-context-indicator"
-            className="flex h-[17px] shrink-0 items-center gap-[2.191px]"
+            className="flex  shrink-0  items-center gap-[2px]"
           >
-            <span className="font-[var(--font-sans)] text-[length:var(--font-size-16-069)] font-(--font-weight-regular) leading-none whitespace-nowrap text-(--white-800) tabular-nums">
+            <span className="font-[var(--font-sans)] text-[length:var(--font-size-16-069)]  font-(--font-weight-regular) leading-none whitespace-nowrap text-(--white-800) tabular-nums">
               {contextIndicatorValue}
             </span>
             <span
               aria-hidden="true"
-              className="relative size-[12.819px] shrink-0 text-(--white-800)"
+              className="relative size-[16px] mb-1.5  shrink-0 text-(--white-800)"
             >
-              <span className="absolute inset-[-3.75%]">
+              <span className="absolute ">
                 <RankingPodiumIcon />
               </span>
             </span>
@@ -170,4 +157,3 @@ export function AnalyticsContextSummary({
     </section>
   );
 }
-

@@ -101,3 +101,32 @@
     @apply font-sans;
   }
 }
+
+@layer utilities {
+  .workspace-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--black-380) transparent;
+    scrollbar-gutter: stable;
+  }
+
+  .workspace-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .workspace-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .workspace-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--black-380);
+    border-radius: 9999px;
+  }
+
+  .workspace-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--black-300);
+  }
+
+  .workspace-scrollbar::-webkit-scrollbar-button {
+    display: none;
+  }
+}

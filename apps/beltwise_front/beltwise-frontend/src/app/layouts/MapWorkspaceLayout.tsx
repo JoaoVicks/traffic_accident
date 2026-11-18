@@ -37,11 +37,11 @@ export function MapWorkspaceLayout({ children }: MapWorkspaceLayoutProps) {
       </div>
 
       {/* Scrollable Left Workspace Content Slot (Figma x: 91, y: 48) */}
-      <div className="pointer-events-none relative z-10 h-full w-full overflow-y-auto pt-[48px] pr-[112px] pb-[48px] pl-[91px]">
+      <div className="workspace-scrollbar pointer-events-auto relative z-10 ml-[75px] h-full w-fit overflow-y-auto pt-[48px] pr-[12px] pb-[48px] pl-[16px]">
         <main
           aria-label="Conteúdo da página"
           data-slot="workspace-content-area"
-          className="pointer-events-auto w-fit"
+          className="w-fit"
         >
           {children ?? <Outlet />}
         </main>
